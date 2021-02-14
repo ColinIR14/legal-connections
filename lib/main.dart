@@ -36,12 +36,13 @@ class InitScreen extends StatelessWidget {
             flex: 1,
             child: Container(
               margin: EdgeInsets.symmetric(horizontal: 20.0),
+              padding: EdgeInsets.symmetric(vertical: 2.0),
               child: SizedBox.expand(
                 child: FlatButton(
                   onPressed: () {},
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(30.0)),
-                  color: Colors.lightBlue[600],
+                  color: Colors.lightBlue[700],
                   child: Text(
                     'Join Us',
                     style: TextStyle(color: Colors.white, fontSize: 30.0),
@@ -59,7 +60,7 @@ class InitScreen extends StatelessWidget {
                 child: Text(
                   'Sign In',
                   style:
-                      TextStyle(color: Colors.lightBlue[600], fontSize: 30.0),
+                      TextStyle(color: Colors.lightBlue[700], fontSize: 30.0),
                 ),
               ),
             ),
