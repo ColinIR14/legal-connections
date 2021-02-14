@@ -19,9 +19,9 @@ class InitScreen extends StatelessWidget {
               child: RichText(
                 text: TextSpan(
                   children: [
-                    WidgetSpan(child: Icon(Icons.mail)),
+                    //WidgetSpan(child: Icon(Icons.mail)),
                     TextSpan(
-                      text: 'Temp Text',
+                      text: 'LawLink',
                       style: TextStyle(
                         color: Colors.black,
                         fontSize: 50.0,
