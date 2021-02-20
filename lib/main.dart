@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'pages/cases_menu.dart';
 import 'pages/classes/scroll_menu.dart';
+import 'pages/signup_page.dart';
 
 CaseCard whatever = CaseCard(
     'Name',
@@ -13,5 +14,7 @@ void main() {
   runApp(MaterialApp(
       home: Scaffold(
           backgroundColor: Colors.grey,
-          body: CasesMenu([whatever, whatever, whatever, whatever]))));
+          body: SignupForm())
+          //body: CasesMenu([whatever, whatever, whatever, whatever]
+          ));
 }
