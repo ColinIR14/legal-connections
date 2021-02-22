@@ -40,8 +40,9 @@ CasesMenu temp_menu = CasesMenu([
 CaseProfile temp_profile = CaseProfile(user1);
 void main() {
   runApp(MaterialApp(
-    initialRoute: 'cases_menu',
+    initialRoute: 'sign_up',
     routes: {
+      'sign_up': (context) => SignupForm(),
       'register_screen': (context) => InitScreen(),
       'case_profile': (context) => temp_profile,
       'cases_menu': (context) => temp_menu,
