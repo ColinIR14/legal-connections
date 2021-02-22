@@ -1,20 +1,12 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:legal_app/pages/case_profile.dart';
+import 'users.dart';
 
 class CaseCard extends StatelessWidget {
-  String name;
-  String location;
-  String category;
-  String profile_pic;
-  String case_overview;
+  Client client;
 
-  CaseCard(String name, String location, String category, String profile_pic,
-      String case_overview) {
-    this.name = name;
-    this.location = location;
-    this.category = category;
-    this.profile_pic = profile_pic;
-    this.case_overview = case_overview;
+  CaseCard(Client client) {
+    this.client = client;
   }
 
   @override
@@ -43,24 +35,24 @@ class CaseCard extends StatelessWidget {
                       height: 65.0,
                       decoration: BoxDecoration(
                         image: DecorationImage(
-                          image: NetworkImage(profile_pic),
+                          image: NetworkImage(client.profile_pic),
                           fit: BoxFit.fill,
                         ),
                       ),
-                      child: Image.network(profile_pic)),
+                      child: Image.network(client.profile_pic)),
                 ),
               ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    '$name',
+                    '${client.name}',
                     style: TextStyle(
                       fontSize: 25.0,
                     ),
                   ),
                   Text(
-                    '$location',
+                    '${client.location}',
                     style: TextStyle(
                       fontSize: 20.0,
                     ),
@@ -71,7 +63,7 @@ class CaseCard extends StatelessWidget {
           ),
           Container(
               child: Text(
-            '$category',
+            '${client.cases[0][0]}', //needs to be changed. may not be first case
             style: TextStyle(
               fontSize: 20.0,
             ),
@@ -79,7 +71,7 @@ class CaseCard extends StatelessWidget {
           Container(
               margin: EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 0.0),
               child: Text(
-                '$case_overview',
+                '${client.cases[0][1]}', //also needs to be changed. same reason
                 textAlign: TextAlign.left,
                 overflow: TextOverflow.fade,
                 maxLines: 4,
@@ -88,7 +80,13 @@ class CaseCard extends StatelessWidget {
             margin: EdgeInsets.symmetric(vertical: 5.0, horizontal: 0.0),
             alignment: Alignment.center,
             child: FlatButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (BuildContext context) =>
+                            CaseProfile(client)));
+              },
               child: Text(
                 'View Profile',
                 style: TextStyle(

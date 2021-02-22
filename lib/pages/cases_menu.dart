@@ -15,11 +15,21 @@ class CasesMenu extends StatelessWidget {
         title: Text(
           'Cases',
           style: TextStyle(
-            fontSize: 40.0,
+            fontSize: 30.0,
             fontWeight: FontWeight.bold,
+            color: Colors.black,
           ),
         ),
         centerTitle: true,
+        backgroundColor: Colors.white,
+        elevation: 0,
+        bottom: PreferredSize(
+          child: Container(
+            color: Colors.grey[100],
+            height: 2.0,
+          ),
+          preferredSize: Size.fromHeight(4.0),
+        ),
       ),
       body: ScrollCases(cases),
       bottomNavigationBar: Container(
