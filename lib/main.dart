@@ -5,6 +5,7 @@ import 'package:legal_app/pages/register_screen.dart';
 import 'pages/cases_menu.dart';
 import 'pages/classes/scroll_menu.dart';
 import 'pages/case_profile.dart';
+import 'pages/signup_page.dart';
 
 Client user1 = Client(
   'Billy Bobby',
