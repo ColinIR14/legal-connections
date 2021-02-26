@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'cases_menu.dart';
-import 'classes/scroll_menu.dart';
+import '../home/cases_menu.dart';
+import '../classes/scroll_menu.dart';
 
 // CaseCard whatever = CaseCard(
 //     'Name',

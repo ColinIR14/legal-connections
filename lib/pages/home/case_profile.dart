@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'classes/users.dart';
+import '../classes/users.dart';
 
 class CaseProfile extends StatelessWidget {
   Client client;

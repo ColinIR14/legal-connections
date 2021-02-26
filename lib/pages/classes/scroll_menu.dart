@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:legal_app/pages/case_profile.dart';
+import '../home/case_profile.dart';
 import 'users.dart';
 
 class CaseCard extends StatelessWidget {

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:legal_app/pages/authenticate/login_page.dart';
 
 class InitScreen extends StatelessWidget {
   @override
@@ -35,7 +36,9 @@ class InitScreen extends StatelessWidget {
               padding: EdgeInsets.symmetric(vertical: 2.0),
               child: SizedBox.expand(
                 child: FlatButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.of(context).pushNamed('sign_up');
+                  },
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(30.0)),
                   color: Colors.lightBlue[700],
@@ -52,7 +55,9 @@ class InitScreen extends StatelessWidget {
             child: Container(
               margin: EdgeInsets.fromLTRB(0.0, 5.0, 0, 30.0),
               child: TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.of(context).pushNamed('login');
+                },
                 child: Text(
                   'Sign In',
                   style:

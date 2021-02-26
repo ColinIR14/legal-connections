@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:legal_app/services/auth.dart';
 
 
 class LoginForm extends StatefulWidget {
@@ -8,6 +9,7 @@ class LoginForm extends StatefulWidget {
 
 class _LoginFormState extends State<LoginForm> {
 
+  final AuthService _auth = AuthService();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,6 +51,16 @@ class _LoginFormState extends State<LoginForm> {
                           onPressed: () async {
 
                           }
+                      ),
+                      RaisedButton(
+                        child: Text('Anon'),
+                        onPressed: () async{
+                          dynamic result = await _auth.signInAnon();
+                          if (result == null) {
+                            print('Authentication error');
+                          }
+                          print(result);
+                        }
                       )
                     ]
                 )
