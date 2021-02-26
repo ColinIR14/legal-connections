@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:legal_app/pages/classes/users.dart';
-import 'file:///C:/Users/cimai/legal-connections/lib/pages/authenticate/register_screen.dart';
+import 'pages/authenticate/register_screen.dart';
 import 'pages/home/cases_menu.dart';
 import 'pages/classes/scroll_menu.dart';
 import 'pages/home/case_profile.dart';
@@ -40,8 +40,6 @@ CasesMenu temp_menu = CasesMenu([
 ]);
 
 CaseProfile temp_profile = CaseProfile(user1);
-
-
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
