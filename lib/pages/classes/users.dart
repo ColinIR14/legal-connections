@@ -16,6 +16,8 @@ class User {
     this.cases = cases;
     this.other_pics = other_pics;
   }
+
+  //get cases method
 }
 
 class Lawyer extends User  {
