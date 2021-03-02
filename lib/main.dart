@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:legal_app/pages/classes/post_card.dart';
 import 'package:legal_app/pages/classes/users.dart';
+import 'package:legal_app/pages/home/home_page.dart';
 import 'pages/authenticate/register_screen.dart';
 import 'pages/home/cases_menu.dart';
 import 'pages/classes/scroll_menu.dart';
@@ -27,6 +29,17 @@ Client user1 = Client(
   ],
 );
 
+Post temp_post = Post(
+    'https://media.sproutsocial.com/uploads/2017/02/10x-featured-social-media-image-size.png',
+    'Htyehsdjksgdfjkhgkljgfkjhgfsjhgsfjkhsgfjhgkfdjkghfsdjkgfdljkghshjdkfgjlhs',
+    DateTime.now(),
+    [Comments(user1, 'wow'), Comments(user1, 'woow')],
+    4);
+
+PostCard temp_postcard = PostCard(user1, temp_post);
+
+HomeMenu temp_home = HomeMenu([temp_postcard, temp_postcard]);
+
 CaseCard temp_case = CaseCard(user1);
 
 CasesMenu temp_menu = CasesMenu([
@@ -53,6 +66,7 @@ void main() async {
       'case_profile': (context) => temp_profile,
       'cases_menu': (context) => temp_menu,
       'login': (context) => LoginForm(),
+      'home_menu': (context) => temp_home
     },
   ));
 }
