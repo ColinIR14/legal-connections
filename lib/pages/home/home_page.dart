@@ -11,7 +11,13 @@ class HomeMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        elevation: 0,
+        backgroundColor: Colors.white,
+        leading: BackButton(
+          color: Colors.grey,
+        ),
+      ),
       body: ListView(
         children: this.posts,
       ),
