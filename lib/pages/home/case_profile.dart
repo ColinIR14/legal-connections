@@ -28,17 +28,21 @@ class CaseProfile extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
-                      margin: EdgeInsets.fromLTRB(0.0, 0.0, 40.0, 20.0),
-                      width: 100.0,
-                      height: 100.0,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        image: DecorationImage(
-                          image: NetworkImage(client.profile_pic),
-                          fit: BoxFit.fill,
-                        ),
-                      ),
-                      child: Image.network(client.profile_pic)),
+                    margin: EdgeInsets.fromLTRB(0.0, 0.0, 40.0, 20.0),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(14.0),
+                      child: Container(
+                          width: 100.0,
+                          height: 100.0,
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                              image: NetworkImage(client.profile_pic),
+                              fit: BoxFit.fill,
+                            ),
+                          ),
+                          child: Image.network(client.profile_pic)),
+                    ),
+                  ),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [

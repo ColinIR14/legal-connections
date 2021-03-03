@@ -4,7 +4,6 @@ import "classes/users.dart";
 import "classes/scroll_menu.dart";
 import 'authenticate/register_screen.dart';
 
-
 Client user1 = Client(
   'Billy Bobby',
   'Toronto',
@@ -15,6 +14,7 @@ Client user1 = Client(
       'jhkgjhkgfdsjhkgfsdjhkgfsdjhlkgfsdjhklgfsdhjlkgfjhlkfgsdgjhkjlhfkgjhkfsgdljkhgsfdkjhgsfjkhgfsjhgksfdjkhslgfjhkgfhjgkfsfhjgkdjslhgfkdjfgshdkljfkdsghsjdkfghskljdfhglskjdfghlskdjfghsdklfjgfskdjhsgkjghjksdflghsjkdfhgkjsdfhkdjshgskjdfhgksjdfhgjskdfhgskjldfghksjldfhgskjdfhgskjldfhgksljdfghsjkldfhgskldjfghjkdfhgskdlfhglsdfjkgshldjfkgh'
     ]
   ],
+  [],
   [
     'https://media.sproutsocial.com/uploads/2017/02/10x-featured-social-media-image-size.png',
     'https://media.sproutsocial.com/uploads/2017/02/10x-featured-social-media-image-size.png',
@@ -34,7 +34,6 @@ CasesMenu temp_menu = CasesMenu([
   temp_case,
   temp_case
 ]);
-
 
 class Wrapper extends StatelessWidget {
   @override

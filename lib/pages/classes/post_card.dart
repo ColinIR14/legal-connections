@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:legal_app/pages/classes/users.dart';
+import 'package:legal_app/pages/home/lawyer_profile.dart';
 
 class Comments {
   User commenter;
@@ -55,22 +56,38 @@ class _PostCardState extends State<PostCard> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.white10,
+      padding: EdgeInsets.fromLTRB(30.0, 25.0, 30.0, 5.0),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        border: Border(
+          top: BorderSide(color: Colors.grey[100], width: 2.0),
+          bottom: BorderSide(color: Colors.grey[100], width: 2.0),
+        ),
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(
-                margin: EdgeInsets.fromLTRB(0.0, 0.0, 20.0, 20.0),
-                width: 75.0,
-                height: 75.0,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  image: DecorationImage(
-                    image: NetworkImage(poster.profile_pic),
-                    fit: BoxFit.fill,
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (BuildContext context) =>
+                              LawyerProfile(this.poster)));
+                },
+                child: Container(
+                  margin: EdgeInsets.fromLTRB(0.0, 0.0, 20.0, 20.0),
+                  width: 75.0,
+                  height: 75.0,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    image: DecorationImage(
+                      image: NetworkImage(poster.profile_pic),
+                      fit: BoxFit.fill,
+                    ),
                   ),
                 ),
               ),
@@ -101,7 +118,7 @@ class _PostCardState extends State<PostCard> {
             ],
           ),
           Container(
-            width: 300,
+            width: 350,
             height: 300,
             decoration: BoxDecoration(
               image: DecorationImage(
