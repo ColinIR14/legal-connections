@@ -3,10 +3,10 @@ import 'package:legal_app/pages/classes/users.dart';
 import 'package:legal_app/pages/home/lawyer_profile.dart';
 
 class Comments {
-  User commenter;
+  OurUser commenter;
   String comment;
 
-  Comments(User commenter, String comment) {
+  Comments(OurUser commenter, String comment) {
     this.commenter = commenter;
     this.comment = comment;
   }
@@ -30,10 +30,10 @@ class Post {
 }
 
 class PostCard extends StatefulWidget {
-  User poster;
+  OurUser poster;
   Post post;
 
-  PostCard(User poster, Post post) {
+  PostCard(OurUser poster, Post post) {
     this.poster = poster;
     this.post = post;
   }
@@ -43,13 +43,13 @@ class PostCard extends StatefulWidget {
 }
 
 class _PostCardState extends State<PostCard> {
-  User poster;
+  OurUser poster;
   Post post;
 
   Map like_color = {true: Colors.red, false: Colors.grey};
   bool liked = false;
 
-  _PostCardState(User poster, Post post) {
+  _PostCardState(OurUser poster, Post post) {
     this.poster = poster;
     this.post = post;
   }

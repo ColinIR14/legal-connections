@@ -10,6 +10,9 @@ class LoginForm extends StatefulWidget {
 class _LoginFormState extends State<LoginForm> {
 
   final AuthService _auth = AuthService();
+
+  String email = '';
+  String password = '';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,13 +35,14 @@ class _LoginFormState extends State<LoginForm> {
                       SizedBox(height: 20.0),
                       TextFormField(
                           onChanged: (val) {
+                            setState(() => email=val);
                           }
                       ),
                       SizedBox(height: 20.0),
                       TextFormField(
                           obscureText: true,
                           onChanged: (val) {
-
+                            setState(() => password=val);
                           }
                       ),
                       SizedBox(height: 20.0),

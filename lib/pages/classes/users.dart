@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 
-class User {
+class OurUser {
   String name;
   String location; //prob change this later to not string
   String profile_pic; //also change this later
@@ -9,8 +9,11 @@ class User {
   List<String> categories;
   List<String> other_pics; //also change this later
   String bio;
+  String uid;
 
-  User(
+  OurUser({ this.uid });
+
+  OurUser.n(
       String name,
       String location,
       String profile_pic,
@@ -30,7 +33,7 @@ class User {
   //get cases method
 }
 
-class Lawyer extends User {
+class Lawyer extends OurUser {
   Lawyer(
       String name,
       String location,
@@ -39,10 +42,10 @@ class Lawyer extends User {
       List<String> categories,
       List<String> other_pics,
       String bio)
-      : super(name, location, profile_pic, cases, categories, other_pics, bio);
+      : super.n(name, location, profile_pic, cases, categories, other_pics, bio);
 }
 
-class Client extends User {
+class Client extends OurUser {
   Client(
     String name,
     String location,
@@ -50,5 +53,5 @@ class Client extends User {
     List<List<String>> cases,
     List<String> categories,
     List<String> other_pics,
-  ) : super(name, location, profile_pic, cases, categories, other_pics);
+  ) : super.n(name, location, profile_pic, cases, categories, other_pics);
 }

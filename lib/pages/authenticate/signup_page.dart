@@ -15,6 +15,11 @@ class SignupForm extends StatefulWidget {
 }
 
 class _SignupFormState extends State<SignupForm> {
+
+  String first = '';
+  String last = '';
+  String email = '';
+  String password = '';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,7 +44,10 @@ class _SignupFormState extends State<SignupForm> {
                     icon: Icon(Icons.person),
                     labelText: 'First Name *',
                   ),
-                  onChanged: (val) {}),
+                  onChanged: (val) {
+                    setState(() => first=val);
+
+                  }),
               SizedBox(height: 20.0),
               TextFormField(
                   decoration: const InputDecoration(
@@ -47,7 +55,10 @@ class _SignupFormState extends State<SignupForm> {
                     labelText: 'Last Name *',
                   ),
                   obscureText: true,
-                  onChanged: (val) {}),
+                  onChanged: (val) {
+                    setState(() => last=val);
+
+                  }),
               SizedBox(height: 20.0),
               TextFormField(
                   decoration: const InputDecoration(
@@ -55,7 +66,9 @@ class _SignupFormState extends State<SignupForm> {
                     labelText: 'Email *',
                   ),
                   obscureText: true,
-                  onChanged: (val) {}),
+                  onChanged: (val) {
+                    setState(() => email=val);
+                  }),
               SizedBox(height: 20.0),
               TextFormField(
                   decoration: const InputDecoration(
@@ -63,7 +76,9 @@ class _SignupFormState extends State<SignupForm> {
                     labelText: 'Password *',
                   ),
                   obscureText: true,
-                  onChanged: (val) {}),
+                  onChanged: (val) {
+                    setState(() => password=val);
+                  }),
               SizedBox(height: 20.0),
               RaisedButton(
                   color: Colors.blue[400],

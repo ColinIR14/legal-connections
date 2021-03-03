@@ -11,6 +11,8 @@ import 'pages/authenticate/signup_page.dart';
 import 'pages/wrapper.dart';
 import 'pages/authenticate/login_page.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:provider/provider.dart';
+import 'services/auth.dart';
 
 Lawyer lawyer1 = Lawyer(
     'Lawyer 1',
@@ -72,7 +74,9 @@ LawyerProfile temp_lawyer_profile = LawyerProfile(lawyer1);
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  runApp(MaterialApp(
+  runApp(StreamProvider<OurUser>.value(
+      value: AuthService().user,
+      child: MaterialApp(
     initialRoute: 'wrapper',
     // initialRoute: 'home_menu',
     routes: {
@@ -85,5 +89,5 @@ void main() async {
       'home_menu': (context) => temp_home,
       'temp_lawyer_profile': (context) => temp_lawyer_profile,
     },
-  ));
+  )));
 }
