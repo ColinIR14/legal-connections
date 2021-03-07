@@ -153,7 +153,6 @@ class LawyerProfile extends StatelessWidget {
         ));
       }
     }
-
     return rows;
   }
 }
