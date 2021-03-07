@@ -3,6 +3,7 @@ import 'package:legal_app/pages/classes/post_card.dart';
 import 'package:legal_app/pages/classes/users.dart';
 import 'package:legal_app/pages/home/home_page.dart';
 import 'package:legal_app/pages/home/lawyer_profile.dart';
+import 'package:legal_app/pages/home/my_links.dart';
 import 'pages/authenticate/register_screen.dart';
 import 'pages/home/cases_menu.dart';
 import 'pages/classes/scroll_menu.dart';
@@ -77,17 +78,18 @@ void main() async {
   runApp(StreamProvider<OurUser>.value(
       value: AuthService().user,
       child: MaterialApp(
-    initialRoute: 'wrapper',
-    // initialRoute: 'home_menu',
-    routes: {
-      'wrapper': (context) => Wrapper(),
-      'sign_up': (context) => SignupForm(),
-      'register_screen': (context) => InitScreen(),
-      'temp_case_profile': (context) => temp_profile,
-      'cases_menu': (context) => temp_menu,
-      'login': (context) => LoginForm(),
-      'home_menu': (context) => temp_home,
-      'temp_lawyer_profile': (context) => temp_lawyer_profile,
-    },
-  )));
+        // initialRoute: 'wrapper',
+        initialRoute: 'page_wrapper',
+        routes: {
+          'wrapper': (context) => Wrapper(),
+          'sign_up': (context) => SignupForm(),
+          'register_screen': (context) => InitScreen(),
+          'temp_case_profile': (context) => temp_profile,
+          'cases_menu': (context) => temp_menu,
+          'login': (context) => LoginForm(),
+          'home_menu': (context) => temp_home,
+          'temp_lawyer_profile': (context) => temp_lawyer_profile,
+          'page_wrapper': (context) => PageWrapper(), //change
+        },
+      )));
 }
