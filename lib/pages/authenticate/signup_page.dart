@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import '../home/cases_menu.dart';
 import '../classes/scroll_menu.dart';
-
+//NEW
+import 'searching_for_legal_aid.dart';
 // CaseCard whatever = CaseCard(
 //     'Name',
 //     'Location',
@@ -15,7 +16,6 @@ class SignupForm extends StatefulWidget {
 }
 
 class _SignupFormState extends State<SignupForm> {
-
   String first = '';
   String last = '';
   String email = '';
@@ -45,8 +45,7 @@ class _SignupFormState extends State<SignupForm> {
                     labelText: 'First Name *',
                   ),
                   onChanged: (val) {
-                    setState(() => first=val);
-
+                    setState(() => first = val);
                   }),
               SizedBox(height: 20.0),
               TextFormField(
@@ -56,8 +55,7 @@ class _SignupFormState extends State<SignupForm> {
                   ),
                   obscureText: true,
                   onChanged: (val) {
-                    setState(() => last=val);
-
+                    setState(() => last = val);
                   }),
               SizedBox(height: 20.0),
               TextFormField(
@@ -67,7 +65,7 @@ class _SignupFormState extends State<SignupForm> {
                   ),
                   obscureText: true,
                   onChanged: (val) {
-                    setState(() => email=val);
+                    setState(() => email = val);
                   }),
               SizedBox(height: 20.0),
               TextFormField(
@@ -77,7 +75,7 @@ class _SignupFormState extends State<SignupForm> {
                   ),
                   obscureText: true,
                   onChanged: (val) {
-                    setState(() => password=val);
+                    setState(() => password = val);
                   }),
               SizedBox(height: 20.0),
               RaisedButton(
@@ -87,7 +85,9 @@ class _SignupFormState extends State<SignupForm> {
                     style: TextStyle(color: Colors.white),
                   ),
                   onPressed: () {
-                    Navigator.pushNamed(context, 'cases_menu');
+                    //Navigator.pushNamed(context, 'cases_menu');
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => Searching()));
                   })
             ]))));
   }

@@ -77,17 +77,17 @@ void main() async {
   runApp(StreamProvider<OurUser>.value(
       value: AuthService().user,
       child: MaterialApp(
-    initialRoute: 'wrapper',
-    // initialRoute: 'home_menu',
-    routes: {
-      'wrapper': (context) => Wrapper(),
-      'sign_up': (context) => SignupForm(),
-      'register_screen': (context) => InitScreen(),
-      'temp_case_profile': (context) => temp_profile,
-      'cases_menu': (context) => temp_menu,
-      'login': (context) => LoginForm(),
-      'home_menu': (context) => temp_home,
-      'temp_lawyer_profile': (context) => temp_lawyer_profile,
-    },
-  )));
+          initialRoute: 'wrapper',
+          // initialRoute: 'home_menu',
+          routes: {
+            'wrapper': (context) => Wrapper(),
+            'sign_up': (context) => SignupForm(),
+            'register_screen': (context) => InitScreen(),
+            'temp_case_profile': (context) => temp_profile,
+            'cases_menu': (context) => temp_menu,
+            'login': (context) => LoginForm(),
+            'home_menu': (context) => temp_home,
+            'temp_lawyer_profile': (context) => temp_lawyer_profile,
+          },
+          debugShowCheckedModeBanner: false)));
 }
