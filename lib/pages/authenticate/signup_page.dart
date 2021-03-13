@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:legal_app/services/auth.dart';
+import 'package:legal_app/services/database.dart';
 import '../home/cases_menu.dart';
 import '../classes/scroll_menu.dart';
 
@@ -26,6 +27,7 @@ class _SignupFormState extends State<SignupForm> {
   String password = '';
   String type = '';
   String error = '';
+  DatabaseMethods databaseMethods = new DatabaseMethods();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -112,6 +114,14 @@ class _SignupFormState extends State<SignupForm> {
                   onPressed: () async {
                     if (_formKey.currentState.validate()) {
                       dynamic result = await _auth.registerWithEmailAndPassword(email, password);
+                      Map<String, String> userInfoMap = {
+                        "email" : email,
+                        "first" : first,
+                        "last" : last,
+                        "type": type
+                      };
+
+                      databaseMethods.uploadUserInfo(userInfoMap);
                       if (result == null) {
                         setState(() => error = 'Invalid values');
                       } else {
