@@ -79,7 +79,7 @@ void main() async {
       value: AuthService().user,
       child: MaterialApp(
         // initialRoute: 'wrapper',
-        initialRoute: 'sign_up',
+        initialRoute: 'temp_lawyer_profile',
         routes: {
           'wrapper': (context) => Wrapper(),
           'sign_up': (context) => SignupForm(),
