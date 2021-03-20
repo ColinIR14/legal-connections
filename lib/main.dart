@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:legal_app/pages/classes/post_card.dart';
 import 'package:legal_app/pages/classes/users.dart';
+import 'package:legal_app/pages/home/create_post.dart';
 import 'package:legal_app/pages/home/home_page.dart';
 import 'package:legal_app/pages/home/lawyer_profile.dart';
 import 'package:legal_app/pages/home/my_links.dart';
@@ -45,14 +46,13 @@ Client client1 = Client(
   ],
 );
 
-Post temp_post = Post(
+PostCard temp_postcard = PostCard(
+    lawyer1,
     'https://media.sproutsocial.com/uploads/2017/02/10x-featured-social-media-image-size.png',
     'Htyehsdjksgdfjkhgkljgfkjhgfsjhgsfjkhsgfjhgkfdjkghfsdjkgfdljkghshjdkfgjlhs',
     DateTime.now(),
     [Comments(user1, 'wow'), Comments(user1, 'woow')],
     4);
-
-PostCard temp_postcard = PostCard(lawyer1, temp_post);
 
 HomeMenu temp_home = HomeMenu([temp_postcard, temp_postcard]);
 
@@ -78,8 +78,8 @@ void main() async {
   runApp(StreamProvider<OurUser>.value(
       value: AuthService().user,
       child: MaterialApp(
-        // initialRoute: 'wrapper',
-        initialRoute: 'temp_lawyer_profile',
+        // initialRoute: 'page_wrapper',
+        initialRoute: 'create_post',
         routes: {
           'wrapper': (context) => Wrapper(),
           'sign_up': (context) => SignupForm(),
@@ -90,6 +90,7 @@ void main() async {
           'home_menu': (context) => temp_home,
           'temp_lawyer_profile': (context) => temp_lawyer_profile,
           'page_wrapper': (context) => PageWrapper(), //change
+          'create_post': (context) => CreatePost()
         },
       )));
 }

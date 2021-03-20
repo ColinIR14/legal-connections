@@ -39,14 +39,13 @@ CasesMenu temp_menu = CasesMenu([
   temp_case
 ]);
 
-Post temp_post = Post(
+PostCard temp_postcard = PostCard(
+    user1,
     'https://media.sproutsocial.com/uploads/2017/02/10x-featured-social-media-image-size.png',
     'Htyehsdjksgdfjkhgkljgfkjhgfsjhgsfjkhsgfjhgkfdjkghfsdjkgfdljkghshjdkfgjlhs',
     DateTime.now(),
     [Comments(user1, 'wow'), Comments(user1, 'woow')],
     4);
-
-PostCard temp_postcard = PostCard(user1, temp_post);
 
 HomeMenu temp_home = HomeMenu([temp_postcard, temp_postcard]);
 
