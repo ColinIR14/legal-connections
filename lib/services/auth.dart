@@ -25,6 +25,11 @@ class AuthService {
     }
   }
 
+  getCurrentUser() async {
+    final User user = _auth.currentUser;
+    return user;
+  }
+
   //sign in anon
   Future signInAnon() async {
     try {
