@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'upload_case_details.dart';
 
 class CreateProfileQ extends StatelessWidget {
   @override
@@ -30,7 +31,12 @@ class CreateProfileQ extends StatelessWidget {
                 Container(
                   width: 150,
                   child: RaisedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => CaseDetails()));
+                    },
                     child: Text(
                       'Yes',
                       style: TextStyle(fontSize: 20.0, color: Colors.white),
@@ -41,9 +47,7 @@ class CreateProfileQ extends StatelessWidget {
                 Container(
                   width: 150,
                   child: RaisedButton(
-                      onPressed: () {
-                        Navigator.pushNamed(context, 'cases_menu');
-                      },
+                      onPressed: () {},
                       child: Text(
                         'Not Now',
                         style: TextStyle(fontSize: 20.0, color: Colors.white),

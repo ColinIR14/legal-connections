@@ -1,310 +1,153 @@
 import 'package:flutter/material.dart';
 import 'wanna_create_profile.dart';
 
-class LegalSelection extends StatelessWidget {
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(home: LegalSelection(title: 'LawLink'));
+  }
+}
+
+class LegalSelection extends StatefulWidget {
+  LegalSelection({Key key, this.title}) : super(key: key);
+
+  final String title;
+
+  @override
+  _MyHomePageState createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<LegalSelection> {
+  createpopup(BuildContext context) {
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            content: Text(
+              'Please select a legal branch.',
+              textAlign: TextAlign.center,
+              style: TextStyle(fontSize: 18.0),
+            ),
+            actions: <Widget>[
+              MaterialButton(
+                child: Text(
+                  'Dismiss',
+                  style: TextStyle(
+                    fontSize: 14.0,
+                    color: Colors.lightBlue[700],
+                  ),
+                ),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        });
+  }
+
+  String valueChoose;
+  List listItem = [
+    "Administrative Law",
+    "Appellate",
+    'Bankruptcy',
+    'Civil Litigation',
+    'Corporate',
+    'Criminal',
+    'Employment',
+    'Family',
+    'Immigration',
+    'In-house',
+    'Malpractice Law',
+    'Personal Injury',
+    'Poverty',
+    'Real Estate',
+    "Tax",
+    'Wills & Estates'
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          'LawLink',
-          style: TextStyle(color: Colors.lightBlue[700]),
-          textAlign: TextAlign.left,
-        ),
+        title: Text(widget.title),
         backgroundColor: Colors.white,
       ),
-      body: Container(
-        child: SingleChildScrollView(
-          child: Column(
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.only(
-                    top: 15.0, bottom: 20.0, left: 30.0, right: 30.0),
-                child: Text(
-                  "What kind of lawyer or legal aid do you need?",
-                  style: TextStyle(fontSize: 28.0, fontWeight: FontWeight.bold),
-                  textAlign: TextAlign.center,
-                ),
-              ),
-              Container(
-                width: 250,
-                padding: EdgeInsets.only(bottom: 10.0),
-                child: RaisedButton(
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => CreateProfileQ()));
-                  },
+      body: Center(
+        child: Column(
+          children: [
+            Container(
+              child: Center(
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 60, bottom: 40),
                   child: Text(
-                    'Administrative Law',
-                    style: TextStyle(fontSize: 14.0, color: Colors.white),
-                  ),
-                  color: Colors.blue[900],
-                ),
-              ),
-              Container(
-                width: 250,
-                padding: EdgeInsets.only(bottom: 10.0),
-                child: RaisedButton(
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => CreateProfileQ()));
-                  },
-                  child: Text(
-                    'Appellate',
-                    style: TextStyle(fontSize: 14.0, color: Colors.white),
-                  ),
-                  color: Colors.blue[900],
-                ),
-              ),
-              Container(
-                width: 250,
-                padding: EdgeInsets.only(bottom: 10.0),
-                child: RaisedButton(
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => CreateProfileQ()));
-                  },
-                  child: Text(
-                    'Bankruptcy',
-                    style: TextStyle(fontSize: 14.0, color: Colors.white),
-                  ),
-                  color: Colors.blue[800],
-                ),
-              ),
-              Container(
-                width: 250,
-                padding: EdgeInsets.only(bottom: 10.0),
-                child: RaisedButton(
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => CreateProfileQ()));
-                  },
-                  child: Text(
-                    'Civil Litigation',
-                    style: TextStyle(fontSize: 14.0, color: Colors.white),
-                  ),
-                  color: Colors.blue[800],
-                ),
-              ),
-              Container(
-                width: 250,
-                padding: EdgeInsets.only(bottom: 10.0),
-                child: RaisedButton(
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => CreateProfileQ()));
-                  },
-                  child: Text(
-                    'Corporate',
-                    style: TextStyle(fontSize: 14.0, color: Colors.white),
-                  ),
-                  color: Colors.blue[700],
-                ),
-              ),
-              Container(
-                width: 250,
-                padding: EdgeInsets.only(bottom: 10.0),
-                child: RaisedButton(
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => CreateProfileQ()));
-                  },
-                  child: Text(
-                    'Criminal',
-                    style: TextStyle(fontSize: 14.0, color: Colors.white),
-                  ),
-                  color: Colors.blue[700],
-                ),
-              ),
-              Container(
-                width: 250,
-                padding: EdgeInsets.only(bottom: 10.0),
-                child: RaisedButton(
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => CreateProfileQ()));
-                  },
-                  child: Text(
-                    'Employment',
-                    style: TextStyle(fontSize: 14.0, color: Colors.white),
-                  ),
-                  color: Colors.blue[600],
-                ),
-              ),
-              Container(
-                width: 250,
-                padding: EdgeInsets.only(bottom: 10.0),
-                child: RaisedButton(
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => CreateProfileQ()));
-                  },
-                  child: Text(
-                    'Family',
-                    style: TextStyle(fontSize: 14.0, color: Colors.white),
+                    'What kind of lawyer or legal aid do you need?',
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 28),
                     textAlign: TextAlign.center,
                   ),
-                  color: Colors.blue[600],
                 ),
               ),
-              Container(
-                width: 250,
-                padding: EdgeInsets.only(bottom: 10.0),
-                child: RaisedButton(
-                  onPressed: () {
+            ),
+            Padding(
+              padding: const EdgeInsets.all(18.0),
+              child: Container(
+                padding: EdgeInsets.only(left: 18, right: 18),
+                decoration: BoxDecoration(
+                    border: Border.all(color: Colors.grey),
+                    borderRadius: BorderRadius.circular(10)),
+                child: DropdownButtonHideUnderline(
+                  child: DropdownButton(
+                    hint: Text('Select One'),
+                    dropdownColor: Colors.grey[50],
+                    icon: Icon(Icons.arrow_drop_down),
+                    iconSize: 30.0,
+                    isExpanded: true,
+                    style: TextStyle(
+                      color: Colors.grey[800],
+                      fontSize: 18,
+                    ),
+                    value: valueChoose,
+                    onChanged: (newValue) {
+                      setState(() {
+                        valueChoose = newValue;
+                      });
+                    },
+                    items: listItem.map((valueItem) {
+                      return DropdownMenuItem(
+                        value: valueItem,
+                        child: Text(valueItem),
+                      );
+                    }).toList(),
+                  ),
+                ),
+              ),
+            ),
+            Container(
+              width: 150,
+              child: RaisedButton(
+                onPressed: () {
+                  //if (valueChoose == null) ;
+                  //{
+                  //   createpopup(context);
+                  // }
+                  if (valueChoose != null) ;
+                  {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
                             builder: (context) => CreateProfileQ()));
-                  },
-                  child: Text(
-                    'Immigration',
-                    style: TextStyle(fontSize: 14.0, color: Colors.white),
-                  ),
-                  color: Colors.blue[500],
+                  }
+                },
+                child: Text(
+                  'Next',
+                  style: TextStyle(fontSize: 20.0, color: Colors.white),
+                  textAlign: TextAlign.center,
                 ),
+                color: Colors.lightBlue[700],
               ),
-              Container(
-                width: 250,
-                padding: EdgeInsets.only(bottom: 10.0),
-                child: RaisedButton(
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => CreateProfileQ()));
-                  },
-                  child: Text(
-                    'In-house',
-                    style: TextStyle(fontSize: 14.0, color: Colors.white),
-                  ),
-                  color: Colors.blue[500],
-                ),
-              ),
-              Container(
-                width: 250,
-                padding: EdgeInsets.only(bottom: 10.0),
-                child: RaisedButton(
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => CreateProfileQ()));
-                  },
-                  child: Text(
-                    'Malpractice Law',
-                    style: TextStyle(fontSize: 14.0, color: Colors.white),
-                  ),
-                  color: Colors.blue[400],
-                ),
-              ),
-              Container(
-                width: 250,
-                padding: EdgeInsets.only(bottom: 10.0),
-                child: RaisedButton(
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => CreateProfileQ()));
-                  },
-                  child: Text(
-                    'Personal Injury',
-                    style: TextStyle(fontSize: 14.0, color: Colors.white),
-                  ),
-                  color: Colors.blue[400],
-                ),
-              ),
-              Container(
-                width: 250,
-                padding: EdgeInsets.only(bottom: 10.0),
-                child: RaisedButton(
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => CreateProfileQ()));
-                  },
-                  child: Text(
-                    'Poverty',
-                    style: TextStyle(fontSize: 14.0, color: Colors.white),
-                  ),
-                  color: Colors.blue[300],
-                ),
-              ),
-              Container(
-                width: 250,
-                padding: EdgeInsets.only(bottom: 10.0),
-                child: RaisedButton(
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => CreateProfileQ()));
-                  },
-                  child: Text(
-                    'Real Estate',
-                    style: TextStyle(fontSize: 14.0, color: Colors.white),
-                  ),
-                  color: Colors.blue[300],
-                ),
-              ),
-              Container(
-                width: 250,
-                padding: EdgeInsets.only(bottom: 10.0),
-                child: RaisedButton(
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => CreateProfileQ()));
-                  },
-                  child: Text(
-                    'Tax',
-                    style: TextStyle(fontSize: 14.0, color: Colors.white),
-                  ),
-                  color: Colors.blue[200],
-                ),
-              ),
-              Container(
-                width: 250,
-                padding: EdgeInsets.only(bottom: 10.0),
-                child: RaisedButton(
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => CreateProfileQ()));
-                  },
-                  child: Text(
-                    'Wills & Estates',
-                    style: TextStyle(fontSize: 14.0, color: Colors.white),
-                  ),
-                  color: Colors.blue[200],
-                ),
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
-        //],
       ),
     );
-    // );
   }
 }

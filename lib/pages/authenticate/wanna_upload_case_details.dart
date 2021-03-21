@@ -1,35 +1,7 @@
 import 'package:flutter/material.dart';
-import 'legal_selection.dart';
+import 'upload_case_details.dart';
 
-class Searching extends StatelessWidget {
-  createpopup(BuildContext context) {
-    return showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            content: Text(
-              'Please return when you need a lawyer or legal aid.',
-              textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 18.0),
-            ),
-            actions: <Widget>[
-              MaterialButton(
-                child: Text(
-                  'Dismiss',
-                  style: TextStyle(
-                    fontSize: 14.0,
-                    color: Colors.lightBlue[700],
-                  ),
-                ),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-              ),
-            ],
-          );
-        });
-  }
-
+class UploadQ extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,7 +20,7 @@ class Searching extends StatelessWidget {
             padding: const EdgeInsets.only(
                 top: 130.0, bottom: 80.0, left: 30.0, right: 30.0),
             child: Text(
-              "Are you currently searching for a lawyer of any form of legal aid?",
+              "Would you like up to upload details of your case now?",
               style: TextStyle(fontSize: 28.0, fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,
             ),
@@ -61,7 +33,7 @@ class Searching extends StatelessWidget {
                 child: RaisedButton(
                   onPressed: () {
                     Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => MyApp()));
+                        MaterialPageRoute(builder: (context) => CaseDetails()));
                   },
                   child: Text(
                     'Yes',
@@ -73,9 +45,7 @@ class Searching extends StatelessWidget {
               Container(
                 width: 150,
                 child: RaisedButton(
-                  onPressed: () {
-                    createpopup(context);
-                  },
+                  onPressed: () {},
                   child: Text(
                     'Not Now',
                     style: TextStyle(fontSize: 20.0, color: Colors.white),
