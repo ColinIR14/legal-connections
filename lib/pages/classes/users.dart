@@ -11,7 +11,7 @@ class OurUser {
   String bio;
   String uid;
 
-  OurUser({ this.uid });
+  OurUser({this.uid});
 
   OurUser.n(
       String name,
@@ -42,7 +42,8 @@ class Lawyer extends OurUser {
       List<String> categories,
       List<String> other_pics,
       String bio)
-      : super.n(name, location, profile_pic, cases, categories, other_pics, bio);
+      : super.n(
+            name, location, profile_pic, cases, categories, other_pics, bio);
 }
 
 class Client extends OurUser {
