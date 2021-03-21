@@ -13,29 +13,8 @@ class HomeMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        elevation: 0,
-        actions: <Widget>[
-          FlatButton.icon(
-            label: Text('logout'),
-            icon: Icon(Icons.person),
-            onPressed: () async {
-              await _auth.signOut();
-            },
-          )
-        ],
-
-        backgroundColor: Colors.white,
-        leading: BackButton(
-          color: Colors.grey,
-        ),
-      ),
-
-
-      body: ListView(
-        children: this.posts,
-
-    ));
+    return ListView(
+      children: this.posts,
+    );
   }
 }

@@ -17,7 +17,6 @@ class SignupForm extends StatefulWidget {
 }
 
 class _SignupFormState extends State<SignupForm> {
-
   final AuthService _auth = AuthService();
   final _formKey = GlobalKey<FormState>();
 
@@ -45,31 +44,31 @@ class _SignupFormState extends State<SignupForm> {
         body: Container(
             padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 50.0),
             child: Form(
-              key: _formKey,
+                key: _formKey,
                 child: Column(children: <Widget>[
-              SizedBox(height: 20.0),
-              TextFormField(
-                validator: (val) => val.isEmpty ? 'Enter first name' : null,
-                  decoration: const InputDecoration(
-                    icon: Icon(Icons.person),
-                    labelText: 'First Name *',
-                  ),
-                  onChanged: (val) {
-                    setState(() => first=val);
-
-                  }),
-              SizedBox(height: 20.0),
-              TextFormField(
-                  validator: (val) => val.isEmpty ? 'Enter last name' : null,
-                  decoration: const InputDecoration(
-                    icon: Icon(Icons.person),
-                    labelText: 'Last Name *',
-                  ),
-                  onChanged: (val) {
-                    setState(() => last=val);
-
-                  }),
-              SizedBox(height: 20.0),
+                  SizedBox(height: 20.0),
+                  TextFormField(
+                      validator: (val) =>
+                          val.isEmpty ? 'Enter first name' : null,
+                      decoration: const InputDecoration(
+                        icon: Icon(Icons.person),
+                        labelText: 'First Name *',
+                      ),
+                      onChanged: (val) {
+                        setState(() => first = val);
+                      }),
+                  SizedBox(height: 20.0),
+                  TextFormField(
+                      validator: (val) =>
+                          val.isEmpty ? 'Enter last name' : null,
+                      decoration: const InputDecoration(
+                        icon: Icon(Icons.person),
+                        labelText: 'Last Name *',
+                      ),
+                      onChanged: (val) {
+                        setState(() => last = val);
+                      }),
+                  SizedBox(height: 20.0),
                   DropdownButtonFormField<String>(
                     validator: (val) => val.isEmpty ? 'What are you?' : null,
                     items: <String>['Client', 'Lawyer'].map((String value) {
@@ -79,59 +78,62 @@ class _SignupFormState extends State<SignupForm> {
                       );
                     }).toList(),
                     onChanged: (value) {
-                      setState(() => type=value);
+                      setState(() => type = value);
                     },
                   ),
                   SizedBox(height: 20.0),
-
                   TextFormField(
                       validator: (val) => val.isEmpty ? 'Enter email' : null,
-                  decoration: const InputDecoration(
-                    icon: Icon(Icons.person),
-                    labelText: 'Email *',
-                  ),
-                  onChanged: (val) {
-                    setState(() => email=val);
-                  }),
-              SizedBox(height: 20.0),
-              TextFormField(
-                  validator: (val) => val.length <= 5 ? 'Enter password (>5 chars)' : null,
-                  decoration: const InputDecoration(
-                    icon: Icon(Icons.person),
-                    labelText: 'Password *',
-                  ),
-                  obscureText: true,
-                  onChanged: (val) {
-                    setState(() => password=val);
-                  }),
-              SizedBox(height: 20.0),
-              RaisedButton(
-                  color: Colors.blue[400],
-                  child: Text(
-                    'Sign up',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                  onPressed: () async {
-                    if (_formKey.currentState.validate()) {
-                      dynamic result = await _auth.registerWithEmailAndPassword(email, password);
-                      Map<String, String> userInfoMap = {
-                        "email" : email,
-                        "first" : first,
-                        "last" : last,
-                        "type": type
-                      };
+                      decoration: const InputDecoration(
+                        icon: Icon(Icons.person),
+                        labelText: 'Email *',
+                      ),
+                      onChanged: (val) {
+                        setState(() => email = val);
+                      }),
+                  SizedBox(height: 20.0),
+                  TextFormField(
+                      validator: (val) =>
+                          val.length <= 5 ? 'Enter password (>5 chars)' : null,
+                      decoration: const InputDecoration(
+                        icon: Icon(Icons.person),
+                        labelText: 'Password *',
+                      ),
+                      obscureText: true,
+                      onChanged: (val) {
+                        setState(() => password = val);
+                      }),
+                  SizedBox(height: 20.0),
+                  RaisedButton(
+                      color: Colors.blue[400],
+                      child: Text(
+                        'Sign up',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      onPressed: () async {
+                        if (_formKey.currentState.validate()) {
+                          dynamic result = await _auth
+                              .registerWithEmailAndPassword(email, password);
+                          Map<String, String> userInfoMap = {
+                            "email": email,
+                            "first": first,
+                            "last": last,
+                            "type": type
+                          };
 
-                      databaseMethods.uploadUserInfo(userInfoMap);
-                      if (result == null) {
-                        setState(() => error = 'Invalid values');
-                      } else {
-                        Navigator.pushNamed(context, 'cases_menu');
-                      }
-                    }
-
-                  }),
+                          databaseMethods.uploadUserInfo(userInfoMap);
+                          if (result == null) {
+                            setState(() => error = 'Invalid values');
+                          } else {
+                            Navigator.pushNamed(context, 'page_wrapper');
+                          }
+                        }
+                      }),
                   SizedBox(height: 12.0),
-                  Text(error, style: TextStyle(color: Colors.black, fontSize: 14.0),),
-            ]))));
+                  Text(
+                    error,
+                    style: TextStyle(color: Colors.black, fontSize: 14.0),
+                  ),
+                ]))));
   }
 }

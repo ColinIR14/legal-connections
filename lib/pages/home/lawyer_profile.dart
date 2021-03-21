@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:legal_app/pages/classes/users.dart';
 
 class LawyerProfile extends StatelessWidget {
-  Lawyer lawyer;
+  OurUser lawyer;
 
-  LawyerProfile(Lawyer lawyer) {
+  LawyerProfile(OurUser lawyer) {
     this.lawyer = lawyer;
   }
 

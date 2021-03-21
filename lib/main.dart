@@ -5,6 +5,7 @@ import 'package:legal_app/pages/home/create_post.dart';
 import 'package:legal_app/pages/home/home_page.dart';
 import 'package:legal_app/pages/home/lawyer_profile.dart';
 import 'package:legal_app/pages/home/my_links.dart';
+import 'package:legal_app/services/database.dart';
 import 'pages/authenticate/register_screen.dart';
 import 'pages/home/cases_menu.dart';
 import 'pages/classes/scroll_menu.dart';
@@ -15,6 +16,7 @@ import 'pages/authenticate/login_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
 import 'services/auth.dart';
+import 'dart:developer';
 
 Lawyer lawyer1 = Lawyer(
     'Lawyer 1',
@@ -78,8 +80,8 @@ void main() async {
   runApp(StreamProvider<OurUser>.value(
       value: AuthService().user,
       child: MaterialApp(
-        // initialRoute: 'page_wrapper',
-        initialRoute: 'create_post',
+        initialRoute: 'page_wrapper',
+        // initialRoute: 'register_screen',
         routes: {
           'wrapper': (context) => Wrapper(),
           'sign_up': (context) => SignupForm(),
