@@ -12,47 +12,50 @@ class Comments {
   }
 }
 
-class Post {
+class PostCard extends StatefulWidget {
+  OurUser poster;
   String pic; //change this after
   String text;
   DateTime post_time;
   List<Comments> comments;
   int likes;
 
-  Post(String pic, String text, DateTime post_time, List<Comments> comments,
-      int likes) {
+  PostCard(OurUser poster, String pic, String text, DateTime post_time,
+      List<Comments> comments, int likes) {
+    this.poster = poster;
     this.pic = pic;
     this.text = text;
     this.post_time = post_time;
     this.comments = comments;
     this.likes = likes;
   }
-}
-
-class PostCard extends StatefulWidget {
-  OurUser poster;
-  Post post;
-
-  PostCard(OurUser poster, Post post) {
-    this.poster = poster;
-    this.post = post;
-  }
 
   @override
-  _PostCardState createState() => _PostCardState(this.poster, this.post);
+  _PostCardState createState() => _PostCardState(this.poster, this.pic,
+      this.text, this.post_time, this.comments, this.likes);
 }
 
 class _PostCardState extends State<PostCard> {
   OurUser poster;
-  Post post;
+  String pic; //change this after
+  String text;
+  DateTime post_time;
+  List<Comments> comments;
+  int likes;
 
   Map like_color = {true: Colors.red, false: Colors.grey};
   bool liked = false;
 
-  _PostCardState(OurUser poster, Post post) {
+  _PostCardState(OurUser poster, String pic, String text, DateTime post_time,
+      List<Comments> comments, int likes) {
     this.poster = poster;
-    this.post = post;
+    this.pic = pic;
+    this.text = text;
+    this.post_time = post_time;
+    this.comments = comments;
+    this.likes = likes;
   }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -122,7 +125,7 @@ class _PostCardState extends State<PostCard> {
             height: 300,
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: NetworkImage(post.pic),
+                image: NetworkImage(this.pic),
                 fit: BoxFit
                     .fitHeight, // this part may need to be changed depending on the aspect ratio of images allowed. should crop/fit better
               ),
@@ -151,7 +154,7 @@ class _PostCardState extends State<PostCard> {
                     text: poster.name,
                     style: TextStyle(fontWeight: FontWeight.bold)),
                 TextSpan(text: '  '),
-                TextSpan(text: post.text),
+                TextSpan(text: this.text),
               ]),
             ),
           ),
@@ -169,14 +172,14 @@ class _PostCardState extends State<PostCard> {
   List<Widget> _generate_comments() {
     List<Widget> comment_list = [];
 
-    for (var i = 0; i < this.post.comments.length; i++) {
+    for (var i = 0; i < this.comments.length; i++) {
       comment_list.add(RichText(
           text: TextSpan(style: TextStyle(color: Colors.black), children: [
         TextSpan(
-            text: this.post.comments[i].commenter.name,
+            text: this.comments[i].commenter.name,
             style: TextStyle(fontWeight: FontWeight.bold)),
         TextSpan(text: '  '),
-        TextSpan(text: this.post.comments[i].comment)
+        TextSpan(text: this.comments[i].comment)
       ])));
     }
     return comment_list;

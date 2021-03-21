@@ -1,5 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import "package:flutter/material.dart";
+import 'package:legal_app/pages/classes/appbars.dart';
 import 'package:legal_app/pages/home/cases_menu.dart';
+import 'package:legal_app/services/auth.dart';
+import 'package:legal_app/services/database.dart';
 import "classes/users.dart";
 import "classes/scroll_menu.dart";
 import 'authenticate/register_screen.dart';
@@ -39,14 +43,13 @@ CasesMenu temp_menu = CasesMenu([
   temp_case
 ]);
 
-Post temp_post = Post(
+PostCard temp_postcard = PostCard(
+    user1,
     'https://media.sproutsocial.com/uploads/2017/02/10x-featured-social-media-image-size.png',
     'Htyehsdjksgdfjkhgkljgfkjhgfsjhgsfjkhsgfjhgkfdjkghfsdjkgfdljkghshjdkfgjlhs',
     DateTime.now(),
     [Comments(user1, 'wow'), Comments(user1, 'woow')],
     4);
-
-PostCard temp_postcard = PostCard(user1, temp_post);
 
 HomeMenu temp_home = HomeMenu([temp_postcard, temp_postcard]);
 
@@ -84,12 +87,18 @@ class PageWrapper extends StatefulWidget {
 
 class _PageWrapperState extends State<PageWrapper> {
   int _current_page = 0;
+  static AuthService _auth = AuthService();
 
   final List<Widget> _pages = [
     temp_home,
     MyLinksPage(temp_messages),
   ];
   final List<String> _titles = ['Home', 'My Links'];
+
+  final List<Widget> _app_bars = [
+    AuthAppBar(_auth, 'Home'),
+    DefaultAppbar('My Links')
+  ];
 
   // If Appbar needs to change(like some should show logout/settings icon) then add a
   // list of Appbars here and set the Appbar based on page.
@@ -103,26 +112,7 @@ class _PageWrapperState extends State<PageWrapper> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text(
-            _titles[_current_page],
-            style: TextStyle(
-              fontSize: 30.0,
-              fontWeight: FontWeight.bold,
-              color: Colors.black,
-            ),
-          ),
-          centerTitle: true,
-          backgroundColor: Colors.white,
-          elevation: 0,
-          bottom: PreferredSize(
-            child: Container(
-              color: Colors.grey[100],
-              height: 2.0,
-            ),
-            preferredSize: Size.fromHeight(4.0),
-          ),
-        ),
+        appBar: _app_bars[_current_page],
         body: _pages[_current_page],
         bottomNavigationBar: Container(
             decoration: BoxDecoration(
