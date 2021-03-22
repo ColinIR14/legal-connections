@@ -156,8 +156,7 @@ class _SignupFormState extends State<SignupForm> {
                               .registerWithEmailAndPassword(email, password);
                           Map<String, String> userInfoMap = {
                             "email": email,
-                            "first": first,
-                            "last": last,
+                            "name": first + " " + last,
                             "type": type
                           };
 

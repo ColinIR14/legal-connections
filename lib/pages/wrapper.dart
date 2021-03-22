@@ -51,6 +51,7 @@ PostCard temp_postcard = PostCard(
     [Comments(user1, 'wow'), Comments(user1, 'woow')],
     4);
 
+
 HomeMenu temp_home = HomeMenu([temp_postcard, temp_postcard]);
 
 MessageCard temp_msg = MessageCard(
@@ -89,6 +90,8 @@ class _PageWrapperState extends State<PageWrapper> {
   int _current_page = 0;
   static AuthService _auth = AuthService();
 
+
+
   final List<Widget> _pages = [
     temp_home,
     MyLinksPage(temp_messages),
@@ -104,6 +107,11 @@ class _PageWrapperState extends State<PageWrapper> {
   // list of Appbars here and set the Appbar based on page.
 
   void onTabTapped(int index) {
+    _auth.getOurUserWithData().then((value) {
+      print("here");
+      print(value.name);
+      print(value.email);
+    });
     setState(() {
       _current_page = index;
     });
@@ -111,6 +119,10 @@ class _PageWrapperState extends State<PageWrapper> {
 
   @override
   Widget build(BuildContext context) {
+    _auth.getOurUserWithData().then((value) {
+      print(value.name);
+      print(value.email);
+    });
     return Scaffold(
         appBar: _app_bars[_current_page],
         body: _pages[_current_page],

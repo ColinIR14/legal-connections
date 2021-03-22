@@ -61,7 +61,17 @@ class _LoginFormState extends State<LoginForm> {
                         'Sign In',
                         style: TextStyle(color: Colors.white),
                       ),
-                      onPressed: () async {}),
+                      onPressed: () async {
+                        if (_formKey.currentState.validate()) {
+                          dynamic result = await _auth
+                              .signInWithEmailAndPassword(email, password);
+                          if (result == null) {
+                            setState(() => error = 'Sign in failed');
+                          } else {
+                            Navigator.pushNamed(context, 'page_wrapper');
+                          }
+                        }
+                      }),
                   RaisedButton(
                       child: Text('Anon'),
                       onPressed: () async {

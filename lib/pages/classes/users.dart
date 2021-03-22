@@ -10,8 +10,15 @@ class OurUser {
   List<String> other_pics; //also change this later
   String bio;
   String uid;
+  String email;
+  String type;
 
   OurUser({this.uid});
+
+  OurUser.fromData(Map<String, dynamic> data)
+      : name = data['name'],
+        email = data['email'],
+        type = data['type'];
 
   OurUser.n(
       String name,

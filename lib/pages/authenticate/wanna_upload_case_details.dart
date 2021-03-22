@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'upload_case_details.dart';
+import '../wrapper.dart';
 
 class UploadQ extends StatelessWidget {
   @override
@@ -45,7 +46,9 @@ class UploadQ extends StatelessWidget {
               Container(
                 width: 150,
                 child: RaisedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pushNamed(context, 'page_wrapper');
+                  },
                   child: Text(
                     'Not Now',
                     style: TextStyle(fontSize: 20.0, color: Colors.white),

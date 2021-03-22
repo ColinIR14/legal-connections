@@ -8,6 +8,7 @@ class DatabaseMethods {
         .get();
   }
 
+
   uploadUserInfo(userMap) {
     FirebaseFirestore.instance.collection("users").add(userMap).catchError((e) {
       print(e.toString());
@@ -35,5 +36,9 @@ class DatabaseMethods {
 
   getPosts() {
     return FirebaseFirestore.instance.collection('posts').get();
+  }
+
+  Future<void> addMessage(String chatRoomId, chatMessageData) {
+
   }
 }
