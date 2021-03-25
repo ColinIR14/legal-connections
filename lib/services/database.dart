@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import '../pages/classes/users.dart';
 
 class DatabaseMethods {
   getUserByEmail(String email) {
@@ -6,6 +7,19 @@ class DatabaseMethods {
         .collection("users")
         .where("email", isEqualTo: email)
         .get();
+  }
+
+  Future<OurUser> getOurUserbyEmail(String email) async {
+    try {
+      var data = await FirebaseFirestore.instance.collection("users").where(
+          "email", isEqualTo: email).limit(1).get();
+      print(data.docs.first.data());
+      return OurUser.fromData(data.docs.first.data());
+    } catch (e) {
+      print(e);
+      print("hi");
+      return null;
+    }
   }
 
 

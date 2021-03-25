@@ -86,10 +86,12 @@ class MessageCard extends StatelessWidget {
     List<String> users = [currUser.email, user.email];
 
     String chatRoomId = getChatRoomId(currUser, user);
+    String chatNames = getChatNames(currUser, user);
 
     Map<String, dynamic> chatRoom = {
       "users": users,
       "chatID" : chatRoomId,
+      "chatNames" : chatNames
     };
 
     dbMethods.createChatRoom(chatRoomId, chatRoom);
@@ -107,6 +109,14 @@ class MessageCard extends StatelessWidget {
       return "${user1.email}\_${user2.email}";
     } else {
       return "${user2.email}\_${user1.email}";
+    }
+  }
+
+  getChatNames(OurUser user1, OurUser user2) {
+    if (user1.type == "Lawyer") {
+      return "${user1.name}\_${user2.name}";
+    } else {
+      return "${user2.name}\_${user1.name}";
     }
   }
 }
