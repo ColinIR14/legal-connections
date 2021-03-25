@@ -34,11 +34,24 @@ class DatabaseMethods {
         .snapshots();
   }
 
-  getPosts() {
-    return FirebaseFirestore.instance.collection('posts').get();
+  Future<void> addMessage(String chatRoomId, chatMessageData){
+
+    FirebaseFirestore.instance.collection("chatRoom")
+        .doc(chatRoomId)
+        .collection("chats")
+        .add(chatMessageData).catchError((e){
+      print(e.toString());
+    });
   }
 
-  Future<void> addMessage(String chatRoomId, chatMessageData) {
+  getUserChats(String email) async {
+    return await FirebaseFirestore.instance
+        .collection("chatRoom")
+        .where('users', arrayContains: email)
+        .snapshots();
+  }
 
+  getPosts() {
+    return FirebaseFirestore.instance.collection('posts').get();
   }
 }

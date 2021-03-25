@@ -1,6 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:legal_app/pages/classes/users.dart';
+import 'package:legal_app/pages/home/chat_screen.dart';
+import 'package:legal_app/services/auth.dart';
+import 'package:legal_app/services/database.dart';
 
 class MessageCard extends StatelessWidget {
   OurUser user;
@@ -10,6 +14,9 @@ class MessageCard extends StatelessWidget {
     this.user = user;
     this.recent_msg = recent_msg;
   }
+  DatabaseMethods dbMethods = new DatabaseMethods();
+  static AuthService auth = AuthService();
+
 
   @override
   Widget build(BuildContext context) {
@@ -25,6 +32,8 @@ class MessageCard extends StatelessWidget {
       child: GestureDetector(
         onTap: () {
           print('tapped');
+          print(user.name);
+          sendMessage(context);
         },
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -71,7 +80,38 @@ class MessageCard extends StatelessWidget {
       ),
     );
   }
+  sendMessage(context) async {
+    OurUser currUser = await auth.getOurUserWithData();
+
+    List<String> users = [currUser.email, user.email];
+
+    String chatRoomId = getChatRoomId(currUser, user);
+
+    Map<String, dynamic> chatRoom = {
+      "users": users,
+      "chatID" : chatRoomId,
+    };
+
+    dbMethods.createChatRoom(chatRoomId, chatRoom);
+
+    Navigator.push(context, MaterialPageRoute(
+        builder: (context) => ChatScreen(
+          chatID: chatRoomId,
+        )
+    ));
+
+  }
+
+  getChatRoomId(OurUser user1, OurUser user2) {
+    if (user1.type == "Lawyer") {
+      return "${user1.email}\_${user2.email}";
+    } else {
+      return "${user2.email}\_${user1.email}";
+    }
+  }
 }
+
+
 
 class MyLinksPage extends StatelessWidget {
   List<MessageCard> messages;

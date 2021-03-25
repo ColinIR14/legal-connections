@@ -16,11 +16,13 @@ class AuthService {
     currEmail = _auth.currentUser.email;
     String uid = _auth.currentUser.uid;
     print(uid);
+    print(currEmail);
     if (uid == null) {
       return null;
     }
     try {
       var data = await FirebaseFirestore.instance.collection("users").where("email", isEqualTo: currEmail).limit(1).get();
+      print(data.docs.first.data());
       return OurUser.fromData(data.docs.first.data());
     /*FirebaseFirestore.instance.collection("users").where("email", isEqualTo: currEmail).limit(1).get()
         .then((value) {
@@ -36,6 +38,7 @@ class AuthService {
     },
     );*/
     } catch (e) {
+      print(e);
       print("hi");
       return null;
     }
@@ -79,6 +82,7 @@ class AuthService {
       User user = (await _auth.signInWithEmailAndPassword(
               email: email, password: password))
           .user;
+      currEmail = _auth.currentUser.email;
       return _userFromFirebaseUser(user);
     } catch (e) {
       print(e.toString());
