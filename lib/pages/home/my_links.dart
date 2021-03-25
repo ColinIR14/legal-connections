@@ -33,7 +33,7 @@ class MessageCard extends StatelessWidget {
         onTap: () {
           print('tapped');
           print(user.name);
-          sendMessage(context);
+          createNewChat(context);
         },
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -80,7 +80,7 @@ class MessageCard extends StatelessWidget {
       ),
     );
   }
-  sendMessage(context) async {
+  createNewChat(context) async {
     OurUser currUser = await auth.getOurUserWithData();
 
     List<String> users = [currUser.email, user.email];

@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:legal_app/pages/classes/post_card.dart';
+import 'package:legal_app/services/constants.dart';
 import '../pages/classes/users.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -82,7 +83,7 @@ class AuthService {
       User user = (await _auth.signInWithEmailAndPassword(
               email: email, password: password))
           .user;
-      currEmail = _auth.currentUser.email;
+      Constants.currUser = await getOurUserWithData();
       return _userFromFirebaseUser(user);
     } catch (e) {
       print(e.toString());

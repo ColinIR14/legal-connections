@@ -3,6 +3,7 @@ import "package:flutter/material.dart";
 import 'package:legal_app/pages/classes/appbars.dart';
 import 'package:legal_app/pages/home/cases_menu.dart';
 import 'package:legal_app/services/auth.dart';
+import 'package:legal_app/services/constants.dart';
 import 'package:legal_app/services/database.dart';
 import "classes/users.dart";
 import "classes/scroll_menu.dart";
@@ -69,6 +70,8 @@ List<MessageCard> temp_messages = [
   temp_msg
 ];
 
+
+
 class Wrapper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -107,6 +110,8 @@ class _PageWrapperState extends State<PageWrapper> {
   // list of Appbars here and set the Appbar based on page.
 
   void onTabTapped(int index) {
+    print(Constants.currUser.email);
+    print("hi");
     _auth.getOurUserWithData().then((value) {
       print("here");
       print(value.name);
