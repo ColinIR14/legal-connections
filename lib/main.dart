@@ -80,7 +80,7 @@ void main() async {
   runApp(StreamProvider<OurUser>.value(
       value: AuthService().user,
       child: MaterialApp(
-        initialRoute: 'login',
+        initialRoute: 'register_screen',
         // initialRoute: 'register_screen',
         routes: {
           'wrapper': (context) => Wrapper(),

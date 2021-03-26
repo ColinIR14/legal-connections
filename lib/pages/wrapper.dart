@@ -51,7 +51,6 @@ PostCard temp_postcard = PostCard(
     [Comments(user1, 'wow'), Comments(user1, 'woow')],
     4);
 
-
 HomeMenu temp_home = HomeMenu([temp_postcard, temp_postcard]);
 
 MessageCard temp_msg = MessageCard(
@@ -89,8 +88,8 @@ class PageWrapper extends StatefulWidget {
 class _PageWrapperState extends State<PageWrapper> {
   int _current_page = 0;
   static AuthService _auth = AuthService();
-
-
+  static DatabaseMethods _database = DatabaseMethods();
+  OurUser user;
 
   final List<Widget> _pages = [
     temp_home,
@@ -117,15 +116,55 @@ class _PageWrapperState extends State<PageWrapper> {
     });
   }
 
+  // get_posts() async {
+  //   Future<List> future = _database.getPosts();
+  //   List temp = await future;
+  //   return temp;
+  // }
+
+  // generate_post_cards() async {
+  //   List temp = await _database.getPosts();
+  //   for (var i = 0; i < temp.length; i++) {
+  //     print(posts[i]);
+  //   }
+  // }
+  FutureBuilder generate_home() {
+    return FutureBuilder(
+      future: _database.getPosts(),
+      builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+        if (!snapshot.hasData) {
+          return Container();
+        } else {
+          List posts_data = snapshot.data;
+          List post_cards;
+
+          for (var i = 0; i < posts_data.length; i++) {
+            post_cards.add(PostCard(
+                posts_data[i]['user'],
+                posts_data[i]['picture'],
+                posts_data[i]['message'],
+                DateTime.now(),
+                [],
+                3));
+          }
+          return HomeMenu(post_cards);
+        }
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     _auth.getOurUserWithData().then((value) {
+      print('here');
       print(value.name);
       print(value.email);
     });
+
     return Scaffold(
         appBar: _app_bars[_current_page],
-        body: _pages[_current_page],
+        // body: _pages[_current_page],
+        body: generate_home(),
         bottomNavigationBar: Container(
             decoration: BoxDecoration(
                 border: Border(
@@ -145,6 +184,7 @@ class _PageWrapperState extends State<PageWrapper> {
                       Icons.home,
                     ),
                     label: 'Home',
+                    // label: user.name,
                   ),
                   BottomNavigationBarItem(
                       icon: Icon(

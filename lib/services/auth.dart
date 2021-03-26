@@ -1,5 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:legal_app/pages/classes/post_card.dart';
+import 'package:legal_app/services/constants.dart';
 import '../pages/classes/users.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -16,13 +16,18 @@ class AuthService {
     currEmail = _auth.currentUser.email;
     String uid = _auth.currentUser.uid;
     print(uid);
+    print(currEmail);
     if (uid == null) {
       return null;
     }
     try {
-      var data = await FirebaseFirestore.instance.collection("users").where("email", isEqualTo: currEmail).limit(1).get();
+      var data = await FirebaseFirestore.instance
+          .collection("users")
+          .where("email", isEqualTo: currEmail)
+          .limit(1)
+          .get();
       return OurUser.fromData(data.docs.first.data());
-    /*FirebaseFirestore.instance.collection("users").where("email", isEqualTo: currEmail).limit(1).get()
+      /*FirebaseFirestore.instance.collection("users").where("email", isEqualTo: currEmail).limit(1).get()
         .then((value) {
           print(value.docs.first.data());
       if(value.docs.length > 0){
@@ -36,11 +41,24 @@ class AuthService {
     },
     );*/
     } catch (e) {
-      print("hi");
+      print(e);
       return null;
     }
   }
 
+  Future<OurUser> getOurUserbyEmail(String email) async {
+    try {
+      var data = await FirebaseFirestore.instance
+          .collection("users")
+          .where("email", isEqualTo: email)
+          .limit(1)
+          .get();
+      return OurUser.fromData(data.docs.first.data());
+    } catch (e) {
+      print(e);
+      return null;
+    }
+  }
 
   Stream<OurUser> get user {
     return _auth.authStateChanges().map(_userFromFirebaseUser);
@@ -79,6 +97,7 @@ class AuthService {
       User user = (await _auth.signInWithEmailAndPassword(
               email: email, password: password))
           .user;
+      Constants.currUser = await getOurUserWithData();
       return _userFromFirebaseUser(user);
     } catch (e) {
       print(e.toString());
