@@ -36,8 +36,16 @@ class _LoginFormState extends State<LoginForm> {
                   TextFormField(
                       validator: (val) => val.isEmpty ? 'Enter email' : null,
                       decoration: const InputDecoration(
-                        icon: Icon(Icons.person),
+                        prefixIcon: Icon(Icons.person),
                         labelText: 'Email *',
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(12.0)),
+                          borderSide: BorderSide(color: Colors.blue, width: 2),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                          borderSide: BorderSide(color: Colors.blue),
+                        ),
                       ),
                       onChanged: (val) {
                         setState(() => email = val);
@@ -47,44 +55,64 @@ class _LoginFormState extends State<LoginForm> {
                       validator: (val) =>
                           val.length <= 5 ? 'Enter password (>5 chars)' : null,
                       decoration: const InputDecoration(
-                        icon: Icon(Icons.person),
+                        prefixIcon: Icon(Icons.lock),
                         labelText: 'Password *',
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(12.0)),
+                          borderSide: BorderSide(color: Colors.blue, width: 2),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                          borderSide: BorderSide(color: Colors.blue),
+                        ),
                       ),
                       obscureText: true,
                       onChanged: (val) {
                         setState(() => password = val);
                       }),
-                  SizedBox(height: 20.0),
-                  RaisedButton(
-                      color: Colors.blue[400],
-                      child: Text(
-                        'Sign In',
-                        style: TextStyle(color: Colors.white),
-                      ),
-                      onPressed: () async {
-                        if (_formKey.currentState.validate()) {
-                          dynamic result = await _auth
-                              .signInWithEmailAndPassword(email, password);
-                          if (result == null) {
-                            setState(() => error = 'Sign in failed');
-                          } else {
-                            Navigator.pushNamed(context, 'page_wrapper');
+                  SizedBox(
+                    height: 20.0,
+                  ),
+                  SizedBox(
+                    width: 175,
+                    child: RaisedButton(
+                        color: Colors.blue,
+                        child: Text(
+                          'Sign In',
+                          style: TextStyle(
+                              color: Colors.white, fontWeight: FontWeight.bold),
+                        ),
+                        onPressed: () async {
+                          if (_formKey.currentState.validate()) {
+                            dynamic result = await _auth
+                                .signInWithEmailAndPassword(email, password);
+                            if (result == null) {
+                              setState(() => error = 'Sign in failed');
+                            } else {
+                              Navigator.pushNamed(context, 'page_wrapper');
+                            }
                           }
-                        }
-                      }),
-                  RaisedButton(
-                      child: Text('Anon'),
-                      onPressed: () async {
-                        if (_formKey.currentState.validate()) {
-                          dynamic result = await _auth
-                              .signInWithEmailAndPassword(email, password);
-                          if (result == null) {
-                            setState(() => error = 'Sign in failed');
-                          } else {
-                            Navigator.pushNamed(context, 'page_wrapper');
+                        }),
+                  ),
+                  SizedBox(
+                    width: 175,
+                    child: RaisedButton(
+                        child: Text(
+                          'Anon',
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        onPressed: () async {
+                          if (_formKey.currentState.validate()) {
+                            dynamic result = await _auth
+                                .signInWithEmailAndPassword(email, password);
+                            if (result == null) {
+                              setState(() => error = 'Sign in failed');
+                            } else {
+                              Navigator.pushNamed(context, 'page_wrapper');
+                            }
                           }
-                        }
-                      }),
+                        }),
+                  ),
                   SizedBox(height: 12.0),
                   Text(
                     error,

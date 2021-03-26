@@ -144,44 +144,51 @@ class _SignupFormState extends State<SignupForm> {
                         setState(() => password = val);
                       }),
                   SizedBox(height: 20.0),
-                  RaisedButton(
-                      color: Colors.blue[400],
-                      child: Text(
-                        'Sign up',
-                        style: TextStyle(color: Colors.white),
-                      ),
-                      onPressed: () async {
-                        if (_formKey.currentState.validate()) {
-                          dynamic result = await _auth
-                              .registerWithEmailAndPassword(email, password);
-                          Map<String, String> userInfoMap = {
-                            "email": email,
-                            "name": first + " " + last,
-                            "type": type
-                          };
+                  SizedBox(
+                    width: 125,
+                    child: RaisedButton(
+                        color: Colors.blue,
+                        child: Text(
+                          'Sign up',
+                          style: TextStyle(
+                              color: Colors.white, fontWeight: FontWeight.bold),
+                        ),
+                        onPressed: () async {
+                          if (_formKey.currentState.validate()) {
+                            dynamic result = await _auth
+                                .registerWithEmailAndPassword(email, password);
+                            Map<String, String> userInfoMap = {
+                              "email": email,
+                              "name": first + " " + last,
+                              "type": type
+                            };
 
-                          databaseMethods.uploadUserInfo(userInfoMap);
-                          if (result == null) {
-                            setState(() => error = 'Invalid values');
-                          } else {
-                            if (isClient == 'Client') {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => Searching()));
-                            } else if (isClient == 'Lawyer') {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => Expertise()));
+                            databaseMethods.uploadUserInfo(userInfoMap);
+                            if (result == null) {
+                              setState(() => error = 'Invalid values');
+                            } else {
+                              if (isClient == 'Client') {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => Searching()));
+                              } else if (isClient == 'Lawyer') {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => Expertise()));
+                              }
                             }
                           }
-                        }
-                      }),
+                        }),
+                  ),
                   SizedBox(height: 12.0),
                   Text(
                     error,
-                    style: TextStyle(color: Colors.black, fontSize: 14.0),
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 14.0,
+                        fontWeight: FontWeight.bold),
                   ),
                 ]))));
   }

@@ -69,7 +69,11 @@ class _MyHomePageState extends State<LegalSelection> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
+        leadingWidth: 0,
+        title: Text(
+          widget.title,
+          style: TextStyle(color: Colors.blue),
+        ),
         backgroundColor: Colors.white,
       ),
       body: Center(
@@ -92,7 +96,7 @@ class _MyHomePageState extends State<LegalSelection> {
               child: Container(
                 padding: EdgeInsets.only(left: 18, right: 18),
                 decoration: BoxDecoration(
-                    border: Border.all(color: Colors.grey),
+                    border: Border.all(color: Colors.blue),
                     borderRadius: BorderRadius.circular(10)),
                 child: DropdownButtonHideUnderline(
                   child: DropdownButton(
@@ -142,7 +146,7 @@ class _MyHomePageState extends State<LegalSelection> {
                   style: TextStyle(fontSize: 20.0, color: Colors.white),
                   textAlign: TextAlign.center,
                 ),
-                color: Colors.lightBlue[700],
+                color: Colors.blue,
               ),
             ),
           ],
