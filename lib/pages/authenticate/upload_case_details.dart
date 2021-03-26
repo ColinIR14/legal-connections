@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:legal_app/pages/wrapper.dart';
 
 class CaseDetails extends StatelessWidget {
   @override
@@ -57,6 +58,8 @@ class CaseDetails extends StatelessWidget {
                 width: 150,
                 child: RaisedButton(
                   onPressed: () {
+                    //upload details
+                    Navigator.pushNamed(context, 'page_wrapper');
                     //Navigator.of(context).pushNamed('home_menu');
                   },
                   child: Text(

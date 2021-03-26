@@ -58,6 +58,9 @@ class _PostCardState extends State<PostCard> {
 
   @override
   Widget build(BuildContext context) {
+    if (this.pic == null) {
+      print(this.text);
+    }
     return Container(
       padding: EdgeInsets.fromLTRB(30.0, 25.0, 30.0, 5.0),
       decoration: BoxDecoration(

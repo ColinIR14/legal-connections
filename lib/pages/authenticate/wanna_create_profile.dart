@@ -48,7 +48,9 @@ class CreateProfileQ extends StatelessWidget {
                 Container(
                   width: 150,
                   child: RaisedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.pushNamed(context, 'page_wrapper');
+                      },
                       child: Text(
                         'Not Now',
                         style: TextStyle(fontSize: 20.0, color: Colors.white),

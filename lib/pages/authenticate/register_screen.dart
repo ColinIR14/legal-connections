@@ -37,7 +37,7 @@ class InitScreen extends StatelessWidget {
               child: SizedBox.expand(
                 child: FlatButton(
                   onPressed: () {
-                    Navigator.of(context).pushNamed('sign_up');
+                    Navigator.pushNamed(context, 'sign_up');
                   },
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(30.0)),

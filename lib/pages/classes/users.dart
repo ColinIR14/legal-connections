@@ -18,7 +18,9 @@ class OurUser {
   OurUser.fromData(Map<String, dynamic> data)
       : name = data['name'],
         email = data['email'],
-        type = data['type'];
+        type = data['type'],
+        profile_pic = data['profile_pic'],
+        location = data['location'];
 
   OurUser.n(
       String name,

@@ -17,11 +17,11 @@ class DatabaseMethods {
           .where("email", isEqualTo: email)
           .limit(1)
           .get();
-      print(data.docs.first.data());
+      //print(data.docs.first.data());
       return OurUser.fromData(data.docs.first.data());
     } catch (e) {
-      print(e);
-      print("hi");
+      //print(e);
+      //print("hi");
       return null;
     }
   }
@@ -69,7 +69,7 @@ class DatabaseMethods {
         .snapshots();
   }
 
-  getPosts() async {
+  Future<List<Map>> getPosts() async {
     QuerySnapshot temp =
         await FirebaseFirestore.instance.collection('posts').get();
     final posts = temp.docs.map((doc) => doc.data()).toList();

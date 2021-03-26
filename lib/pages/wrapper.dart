@@ -108,7 +108,8 @@ class _PageWrapperState extends State<PageWrapper> {
   int _current_page = 0;
   static AuthService _auth = AuthService();
   Stream chats;
-  DatabaseMethods dbmethods = new DatabaseMethods();
+  DatabaseMethods dbMethods = new DatabaseMethods();
+  OurUser user;
 
   Widget chatsList() {
     return StreamBuilder(
@@ -151,8 +152,6 @@ class _PageWrapperState extends State<PageWrapper> {
   }
 
 
-  static DatabaseMethods _database = DatabaseMethods();
-  OurUser user;
 
   final List<Widget> _pages = [
     temp_home,
@@ -195,11 +194,16 @@ class _PageWrapperState extends State<PageWrapper> {
   // }
   FutureBuilder generate_home() {
     return FutureBuilder(
-      future: _database.getPosts(),
+      future: generatePosts(),
       builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
         if (!snapshot.hasData) {
+          print(snapshot);
+          print("No data in snapshot");
           return Container();
         } else {
+          print("Snapshot has data");
+          List postCards = snapshot.data;
+          /*
           List posts_data = snapshot.data;
           List post_cards;
 
@@ -212,24 +216,46 @@ class _PageWrapperState extends State<PageWrapper> {
                 [],
                 3));
           }
-          return HomeMenu(post_cards);
+
+           */
+          return HomeMenu(postCards);
         }
       },
     );
   }
 
+  generatePosts() async {
+    List posts = await givePostsUserObjects();
+    List<PostCard> postCards = new List(posts.length);
+    for (var i = 0; i < posts.length; i++) {
+      print(posts[i]['picture']);
+      print(posts[i]['message']);
+      postCards[i] = PostCard(
+          posts[i]['user'],
+          posts[i]['picture'],
+          posts[i]['message'],
+          DateTime.now(),
+          [],
+          3);
+
+    }
+    print(posts.length);
+    return postCards;
+  }
+
   @override
   Widget build(BuildContext context) {
     _auth.getOurUserWithData().then((value) {
-      print('here');
-      print(value.name);
-      print(value.email);
+      //print('here');
+      //print(value.name);
+      //print(value.email);
     });
 
     return Scaffold(
         appBar: _app_bars[_current_page],
         // body: _pages[_current_page],
-        body: generate_home(),
+        body: _current_page == 0 ? generate_home() :_pages[_current_page],
+
         bottomNavigationBar: Container(
             decoration: BoxDecoration(
                 border: Border(
@@ -267,5 +293,17 @@ class _PageWrapperState extends State<PageWrapper> {
                       ),
                       label: 'Messages'),
                 ])));
+  }
+
+  givePostsUserObjects() async {
+    var posts = await dbMethods.getPosts();
+    print(posts.length);
+
+    for (int i = 0; i < posts.length; i++) {
+      posts[i]['user'] = await dbMethods.getOurUserbyEmail(posts[i]['user']);
+      print("POST: ");
+      print(posts[i]['user']);
+    }
+    return posts;
   }
 }

@@ -176,13 +176,14 @@ class _SignupFormState extends State<SignupForm> {
                               Map<String, String> userInfoMap = {
                                 "email": email,
                                 "name": first + " " + last,
-                                "type": type
+                                "type": type,
+                                "profile_pic": 'https://media.sproutsocial.com/uploads/2017/02/10x-featured-social-media-image-size.png',
+                                "location": 'Canada'
                               };
-
-                              databaseMethods.uploadUserInfo(userInfoMap);
                               if (result == null) {
                                 setState(() => error = 'Invalid values');
                               } else {
+                                databaseMethods.uploadUserInfo(userInfoMap);
                                 if (isClient == 'Client') {
                                   Navigator.push(
                                       context,

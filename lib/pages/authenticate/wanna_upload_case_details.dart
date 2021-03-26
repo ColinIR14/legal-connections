@@ -48,7 +48,12 @@ class UploadQ extends StatelessWidget {
                 width: 150,
                 child: RaisedButton(
                   onPressed: () {
-                    Navigator.pushNamed(context, 'page_wrapper');
+                    print("Going to page wrapper");
+                    //return PageWrapper();Don't want them to go back to the sign in page
+                    Navigator.pushNamed(context, 'register_screen');
+
+                    //Navigator.pushNamed(context, 'page_wrapper');
+                    print('pushing to page wrapper');
                   },
                   child: Text(
                     'Not Now',
