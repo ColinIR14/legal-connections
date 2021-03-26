@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:legal_app/services/constants.dart';
 import '../pages/classes/users.dart';
 
 class DatabaseMethods {
@@ -75,5 +76,41 @@ class DatabaseMethods {
     // print(posts);
     // print(posts.runtimeType);
     return posts;
+  }
+
+  createNewChat(OurUser otherUser) async {
+    OurUser currUser = Constants.currUser;
+
+    List<String> users = [currUser.email, otherUser.email];
+
+    String chatID = getChatRoomId(currUser, otherUser);
+    String chatNames = getChatNames(currUser, otherUser);
+
+    Map<String, dynamic> chatRoom = {
+      "users": users,
+      "chatID" : chatID,
+      "chatNames" : chatNames
+    };
+
+    createChatRoom(chatID, chatRoom);
+
+    return chatID;
+
+  }
+
+  getChatRoomId(OurUser user1, OurUser user2) {
+    if (user1.type == "Lawyer") {
+      return "${user1.email}\_${user2.email}";
+    } else {
+      return "${user2.email}\_${user1.email}";
+    }
+  }
+
+  getChatNames(OurUser user1, OurUser user2) {
+    if (user1.type == "Lawyer") {
+      return "${user1.name}\_${user2.name}";
+    } else {
+      return "${user2.name}\_${user1.name}";
+    }
   }
 }

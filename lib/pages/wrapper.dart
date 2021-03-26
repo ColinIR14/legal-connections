@@ -3,6 +3,7 @@ import "package:flutter/material.dart";
 import 'package:legal_app/pages/classes/appbars.dart';
 import 'package:legal_app/pages/home/cases_menu.dart';
 import 'package:legal_app/services/auth.dart';
+import 'package:legal_app/services/constants.dart';
 import 'package:legal_app/services/database.dart';
 import "classes/users.dart";
 import "classes/scroll_menu.dart";
@@ -32,8 +33,10 @@ Client user1 = Client(
 );
 
 CaseCard temp_case = CaseCard(user1);
+CaseCard temp_case2 = CaseCard(user2);
 
 CasesMenu temp_menu = CasesMenu([
+  temp_case2,
   temp_case,
   temp_case,
   temp_case,
@@ -51,10 +54,26 @@ PostCard temp_postcard = PostCard(
     [Comments(user1, 'wow'), Comments(user1, 'woow')],
     4);
 
-HomeMenu temp_home = HomeMenu([temp_postcard, temp_postcard]);
+PostCard temp_postcard2 = PostCard(
+    user2,
+    'https://media.sproutsocial.com/uploads/2017/02/10x-featured-social-media-image-size.png',
+    'Htyehsdjksgdfjkhgkljgfkjhgfsjhgsfjkhsgfjhgkfdjkghfsdjkgfdljkghshjdkfgjlhs',
+    DateTime.now(),
+    [Comments(user1, 'wow'), Comments(user1, 'woow')],
+    4);
+
+Map<String, String> userInfoMap = {
+  "email": 'bob@bob.com',
+  "name": 'bob',
+  "type": 'Lawyer'
+};
+
+OurUser user2 = OurUser.fromData(userInfoMap);
+
+HomeMenu temp_home = HomeMenu([temp_postcard2, temp_postcard]);
 
 MessageCard temp_msg = MessageCard(
-    user1, 'this is to test overflow of text so it needs to be long ');
+    user1.name, user1.email, 'this is to test overflow of text so it needs to be long ');
 
 List<MessageCard> temp_messages = [
   temp_msg,
@@ -88,6 +107,50 @@ class PageWrapper extends StatefulWidget {
 class _PageWrapperState extends State<PageWrapper> {
   int _current_page = 0;
   static AuthService _auth = AuthService();
+  Stream chats;
+  DatabaseMethods dbmethods = new DatabaseMethods();
+
+  Widget chatsList() {
+    return StreamBuilder(
+      stream: chats,
+      builder: (context, snapshot) {
+        return snapshot.hasData
+            ? ListView.builder(
+            itemCount: snapshot.data.documents.length,
+            shrinkWrap: true,
+            itemBuilder: (context, index) {
+              return MessageCard(
+                  snapshot.data.documents[index].data['chatNames'].toString()
+                      .replaceAll("_", "")
+                      .replaceAll(Constants.currUser.name, ""),
+                snapshot.data.documents[index].data['chatID'].toString()
+                    .replaceAll("_", "")
+                    .replaceAll(Constants.currUser.email, ""),
+                ''
+              );
+            })
+            : Container();
+      },
+    );
+  }
+
+  @override
+  void initState() {
+    getChatsFromUser();
+    super.initState();
+  }
+
+  getChatsFromUser() async {
+    DatabaseMethods().getUserChats(Constants.currUser.email).then((snapshots) {
+      setState(() {
+        chats = snapshots;
+        print(
+            "chats: ${chats.toString()} user:  ${Constants.currUser.name}");
+      });
+    });
+  }
+
+
   static DatabaseMethods _database = DatabaseMethods();
   OurUser user;
 
@@ -106,10 +169,12 @@ class _PageWrapperState extends State<PageWrapper> {
   // list of Appbars here and set the Appbar based on page.
 
   void onTabTapped(int index) {
+    //print(Constants.currUser.email);
+    //print("hi");
     _auth.getOurUserWithData().then((value) {
-      print("here");
-      print(value.name);
-      print(value.email);
+      //print("here");
+      //print(value.name);
+      //print(value.email);
     });
     setState(() {
       _current_page = index;

@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:legal_app/pages/classes/users.dart';
+import 'package:legal_app/pages/home/chat_screen.dart';
+import 'package:legal_app/services/auth.dart';
+import 'package:legal_app/services/database.dart';
 
 class LawyerProfile extends StatelessWidget {
   OurUser lawyer;
+
+  DatabaseMethods dbMethods = new DatabaseMethods();
+  static AuthService auth = AuthService();
 
   LawyerProfile(OurUser lawyer) {
     this.lawyer = lawyer;
@@ -74,7 +80,7 @@ class LawyerProfile extends StatelessWidget {
               ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: _generate_row(),
+                children: _generate_row(context),
               ),
               Container(
                 margin: EdgeInsets.all(5),
@@ -91,7 +97,7 @@ class LawyerProfile extends StatelessWidget {
     );
   }
 
-  List<Widget> _generate_row() {
+  List<Widget> _generate_row(context) {
     List<Widget> rows = [];
     var length = this.lawyer.categories.length;
 
@@ -111,7 +117,8 @@ class LawyerProfile extends StatelessWidget {
             style: TextStyle(
                 color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20),
           ),
-        ));
+        ),
+        );
       } else {
         rows.add(Row(
           children: [
@@ -151,8 +158,27 @@ class LawyerProfile extends StatelessWidget {
             )
           ],
         ));
+
       }
     }
+    rows.add(RaisedButton(
+        color: Colors.blue[400],
+        child: Text(
+          'Add Link',
+          style: TextStyle(color: Colors.white),
+        ),
+        onPressed: () async {
+          String chatID;
+          dbMethods.createNewChat(lawyer).then((ID) => chatID =ID);
+          Navigator.push(context, MaterialPageRoute(
+              builder: (context) => ChatScreen(
+                chatID: chatID,
+              )
+          ));
+        }),
+    );
     return rows;
   }
+
+
 }

@@ -9,12 +9,21 @@ import 'package:legal_app/services/database.dart';
 
 class MessageCard extends StatelessWidget {
   OurUser user;
+  String email;
+  String name;
   String recent_msg;
 
-  MessageCard(OurUser user, String recent_msg) {
-    this.user = user;
+  MessageCard(String name, String email, String recent_msg) {
+    this.name = name;
+    this.email = email;
     this.recent_msg = recent_msg;
+    this.initOurUser();
   }
+
+  initOurUser() async {
+    dbMethods.getOurUserbyEmail(this.email).then((user) => this.user = user);
+  }
+
   DatabaseMethods dbMethods = new DatabaseMethods();
   static AuthService auth = AuthService();
 
@@ -45,7 +54,8 @@ class MessageCard extends StatelessWidget {
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 image: DecorationImage(
-                  image: NetworkImage(user.profile_pic),
+                  image: NetworkImage(user.profile_pic != null ? user.profile_pic :
+                  'https://media.sproutsocial.com/uploads/2017/02/10x-featured-social-media-image-size.png'),
                   fit: BoxFit.fill,
                 ),
               ),

@@ -15,11 +15,6 @@ class AuthService {
   Future<OurUser> getOurUserWithData() async {
     currEmail = _auth.currentUser.email;
     String uid = _auth.currentUser.uid;
-    print(uid);
-    print(currEmail);
-    if (uid == null) {
-      return null;
-    }
     try {
       var data = await FirebaseFirestore.instance
           .collection("users")
@@ -27,19 +22,7 @@ class AuthService {
           .limit(1)
           .get();
       return OurUser.fromData(data.docs.first.data());
-      /*FirebaseFirestore.instance.collection("users").where("email", isEqualTo: currEmail).limit(1).get()
-        .then((value) {
-          print(value.docs.first.data());
-      if(value.docs.length > 0){
-        print("here");
-        print(OurUser.fromData(value.docs.first.data()).name);
-        return OurUser.fromData(value.docs.first.data());
-      } else {
-        print("hello");
-        return null;
-      }
-    },
-    );*/
+
     } catch (e) {
       print(e);
       return null;

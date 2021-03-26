@@ -4,6 +4,8 @@ import 'package:legal_app/pages/classes/users.dart';
 import 'package:legal_app/pages/home/chat_screen.dart';
 import 'package:legal_app/services/auth.dart';
 import 'package:legal_app/services/database.dart';
+import '../wrapper.dart';
+import 'package:legal_app/pages/classes/appbars.dart';
 
 
 class ChatScreen extends StatefulWidget {
@@ -26,11 +28,11 @@ class _ChatScreenState extends State<ChatScreen> {
       stream: chats,
       builder: (context, snapshot) {
         return snapshot.hasData ? ListView.builder(
-            itemCount: snapshot.data.documents.length,
+            itemCount: snapshot.data.docs.length,
             itemBuilder: (context, index) {
               return MessageTile(
-                message: snapshot.data.documents[index].data["message"],
-                sentByMe:  currUser.email == snapshot.data.documents[index].data["sendBy"],
+                message: snapshot.data.docs[index].data["message"],
+                sentByMe:  currUser.email == snapshot.data.docs[index].data["sendBy"],
               );
             }
         ) : Container();
@@ -57,6 +59,85 @@ class _ChatScreenState extends State<ChatScreen> {
   }
 
   @override
+  void initState() {
+    print("Widget ID: ");
+    print(widget.chatID);
+    DatabaseMethods().getChats(widget.chatID).then((val) {
+      setState(() {
+        print("initialized snapshot");
+        chats = val;
+      });
+    });
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    print('made it to build');
+    print("Widget ID: ");
+    print(widget.chatID);
+    return Scaffold(
+      appBar: DefaultAppbar('My Links'),
+      body: Container(
+        child: Stack(
+          children: [
+            chatMessages(),
+            Container(alignment: Alignment.bottomCenter,
+              width: MediaQuery
+                  .of(context)
+                  .size
+                  .width,
+              child: Container(
+                padding: EdgeInsets.symmetric(horizontal: 24, vertical: 24),
+                color: Color(0x54FFFFFF),
+                child: Row(
+                  children: [
+                    Expanded(
+                        child: TextField(
+                          controller: messageEditingController,
+                          decoration: InputDecoration(
+                              hintText: "Message ...",
+                              hintStyle: TextStyle(
+                                color: Colors.white,
+                                fontSize: 16,
+                              ),
+                              border: InputBorder.none
+                          ),
+                        )),
+                    SizedBox(width: 16,),
+                    GestureDetector(
+                      onTap: () {
+                        addMessage();
+                      },
+                      child: Container(
+                          height: 40,
+                          width: 40,
+                          decoration: BoxDecoration(
+                              gradient: LinearGradient(
+                                  colors: [
+                                    const Color(0x36FFFFFF),
+                                    const Color(0x0FFFFFFF)
+                                  ],
+                                  begin: FractionalOffset.topLeft,
+                                  end: FractionalOffset.bottomRight
+                              ),
+                              borderRadius: BorderRadius.circular(40)
+                          ),
+                          padding: EdgeInsets.all(12),
+                          child: Image.network("https://icons-for-free.com/iconfiles/png/512/content+send+icon-1320087227200139227.png",
+                            height: 25, width: 25,)),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+  /*
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -77,6 +158,8 @@ class _ChatScreenState extends State<ChatScreen> {
       ),
     );
   }
+
+   */
 }
 
 class MessageTile extends StatelessWidget {
