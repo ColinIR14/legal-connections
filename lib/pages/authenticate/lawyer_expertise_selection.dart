@@ -7,9 +7,10 @@ class Expertise extends StatelessWidget {
     var selectedCat = <String>[];
     return Scaffold(
       appBar: AppBar(
+        leadingWidth: 0,
         title: Text(
           'LawLink',
-          style: TextStyle(color: Colors.lightBlue[700]),
+          style: TextStyle(color: Colors.blue),
           textAlign: TextAlign.left,
         ),
         backgroundColor: Colors.white,
@@ -30,7 +31,7 @@ class Expertise extends StatelessWidget {
                   ),
                 ),
                 Container(
-                  width: 250,
+                  width: 200,
                   padding: EdgeInsets.only(bottom: 10.0),
                   child: RaisedButton(
                     onPressed: () {
@@ -40,11 +41,11 @@ class Expertise extends StatelessWidget {
                       'Administrative Law',
                       style: TextStyle(fontSize: 14.0, color: Colors.white),
                     ),
-                    color: Colors.blue[900],
+                    color: Colors.blue[800],
                   ),
                 ),
                 Container(
-                  width: 250,
+                  width: 200,
                   padding: EdgeInsets.only(bottom: 10.0),
                   child: RaisedButton(
                     onPressed: () {
@@ -54,11 +55,11 @@ class Expertise extends StatelessWidget {
                       'Appellate',
                       style: TextStyle(fontSize: 14.0, color: Colors.white),
                     ),
-                    color: Colors.blue[900],
+                    color: Colors.blue[800],
                   ),
                 ),
                 Container(
-                  width: 250,
+                  width: 200,
                   padding: EdgeInsets.only(bottom: 10.0),
                   child: RaisedButton(
                     onPressed: () {
@@ -72,7 +73,7 @@ class Expertise extends StatelessWidget {
                   ),
                 ),
                 Container(
-                  width: 250,
+                  width: 200,
                   padding: EdgeInsets.only(bottom: 10.0),
                   child: RaisedButton(
                     onPressed: () {
@@ -86,7 +87,7 @@ class Expertise extends StatelessWidget {
                   ),
                 ),
                 Container(
-                  width: 250,
+                  width: 200,
                   padding: EdgeInsets.only(bottom: 10.0),
                   child: RaisedButton(
                     onPressed: () {
@@ -100,7 +101,7 @@ class Expertise extends StatelessWidget {
                   ),
                 ),
                 Container(
-                  width: 250,
+                  width: 200,
                   padding: EdgeInsets.only(bottom: 10.0),
                   child: RaisedButton(
                     onPressed: () {
@@ -114,7 +115,7 @@ class Expertise extends StatelessWidget {
                   ),
                 ),
                 Container(
-                  width: 250,
+                  width: 200,
                   padding: EdgeInsets.only(bottom: 10.0),
                   child: RaisedButton(
                     onPressed: () {
@@ -124,11 +125,11 @@ class Expertise extends StatelessWidget {
                       'Employment',
                       style: TextStyle(fontSize: 14.0, color: Colors.white),
                     ),
-                    color: Colors.blue[600],
+                    color: Colors.blue[700],
                   ),
                 ),
                 Container(
-                  width: 250,
+                  width: 200,
                   padding: EdgeInsets.only(bottom: 10.0),
                   child: RaisedButton(
                     onPressed: () {
@@ -139,11 +140,11 @@ class Expertise extends StatelessWidget {
                       style: TextStyle(fontSize: 14.0, color: Colors.white),
                       textAlign: TextAlign.center,
                     ),
-                    color: Colors.blue[600],
+                    color: Colors.blue[700],
                   ),
                 ),
                 Container(
-                  width: 250,
+                  width: 200,
                   padding: EdgeInsets.only(bottom: 10.0),
                   child: RaisedButton(
                     onPressed: () {
@@ -153,11 +154,11 @@ class Expertise extends StatelessWidget {
                       'Immigration',
                       style: TextStyle(fontSize: 14.0, color: Colors.white),
                     ),
-                    color: Colors.blue[500],
+                    color: Colors.blue[600],
                   ),
                 ),
                 Container(
-                  width: 250,
+                  width: 200,
                   padding: EdgeInsets.only(bottom: 10.0),
                   child: RaisedButton(
                     onPressed: () {
@@ -167,11 +168,11 @@ class Expertise extends StatelessWidget {
                       'In-house',
                       style: TextStyle(fontSize: 14.0, color: Colors.white),
                     ),
-                    color: Colors.blue[500],
+                    color: Colors.blue[600],
                   ),
                 ),
                 Container(
-                  width: 250,
+                  width: 200,
                   padding: EdgeInsets.only(bottom: 10.0),
                   child: RaisedButton(
                     onPressed: () {
@@ -181,11 +182,11 @@ class Expertise extends StatelessWidget {
                       'Malpractice Law',
                       style: TextStyle(fontSize: 14.0, color: Colors.white),
                     ),
-                    color: Colors.blue[400],
+                    color: Colors.blue[600],
                   ),
                 ),
                 Container(
-                  width: 250,
+                  width: 200,
                   padding: EdgeInsets.only(bottom: 10.0),
                   child: RaisedButton(
                     onPressed: () {
@@ -195,11 +196,11 @@ class Expertise extends StatelessWidget {
                       'Personal Injury',
                       style: TextStyle(fontSize: 14.0, color: Colors.white),
                     ),
-                    color: Colors.blue[400],
+                    color: Colors.blue[600],
                   ),
                 ),
                 Container(
-                  width: 250,
+                  width: 200,
                   padding: EdgeInsets.only(bottom: 10.0),
                   child: RaisedButton(
                     onPressed: () {
@@ -209,11 +210,11 @@ class Expertise extends StatelessWidget {
                       'Poverty',
                       style: TextStyle(fontSize: 14.0, color: Colors.white),
                     ),
-                    color: Colors.blue[300],
+                    color: Colors.blue[500],
                   ),
                 ),
                 Container(
-                  width: 250,
+                  width: 200,
                   padding: EdgeInsets.only(bottom: 10.0),
                   child: RaisedButton(
                     onPressed: () {
@@ -223,11 +224,11 @@ class Expertise extends StatelessWidget {
                       'Real Estate',
                       style: TextStyle(fontSize: 14.0, color: Colors.white),
                     ),
-                    color: Colors.blue[300],
+                    color: Colors.blue[500],
                   ),
                 ),
                 Container(
-                  width: 250,
+                  width: 200,
                   padding: EdgeInsets.only(bottom: 10.0),
                   child: RaisedButton(
                     onPressed: () {
@@ -237,11 +238,11 @@ class Expertise extends StatelessWidget {
                       'Tax',
                       style: TextStyle(fontSize: 14.0, color: Colors.white),
                     ),
-                    color: Colors.blue[200],
+                    color: Colors.blue[500],
                   ),
                 ),
                 Container(
-                  width: 250,
+                  width: 200,
                   padding: EdgeInsets.only(bottom: 10.0),
                   child: RaisedButton(
                     onPressed: () {
@@ -251,11 +252,11 @@ class Expertise extends StatelessWidget {
                       'Wills & Estates',
                       style: TextStyle(fontSize: 14.0, color: Colors.white),
                     ),
-                    color: Colors.blue[200],
+                    color: Colors.blue[500],
                   ),
                 ),
                 Container(
-                  width: 250,
+                  width: 200,
                   padding: EdgeInsets.only(top: 30, bottom: 30.0),
                   child: RaisedButton(
                     onPressed: () {
@@ -269,7 +270,7 @@ class Expertise extends StatelessWidget {
                       'Done',
                       style: TextStyle(fontSize: 14.0, color: Colors.white),
                     ),
-                    color: Colors.lightBlue[900],
+                    color: Colors.blue[800],
                   ),
                 ),
               ],

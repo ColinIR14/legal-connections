@@ -6,6 +6,7 @@ class CreateProfileQ extends StatelessWidget {
   Widget build(BuildContext context) {
     return (Scaffold(
       appBar: AppBar(
+        leadingWidth: 0,
         title: Text(
           'LawLink',
           style: TextStyle(color: Colors.lightBlue[700]),

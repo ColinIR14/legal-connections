@@ -18,7 +18,7 @@ class Searching extends StatelessWidget {
                   'Dismiss',
                   style: TextStyle(
                     fontSize: 14.0,
-                    color: Colors.lightBlue[700],
+                    color: Colors.blue,
                   ),
                 ),
                 onPressed: () {
@@ -34,9 +34,10 @@ class Searching extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leadingWidth: 0,
         title: Text(
           'LawLink',
-          style: TextStyle(color: Colors.blueAccent),
+          style: TextStyle(color: Colors.blue),
         ),
         backgroundColor: Colors.white,
       ),
@@ -67,7 +68,7 @@ class Searching extends StatelessWidget {
                     'Yes',
                     style: TextStyle(fontSize: 20.0, color: Colors.white),
                   ),
-                  color: Colors.lightBlue[700],
+                  color: Colors.blue,
                 ),
               ),
               Container(
@@ -81,7 +82,7 @@ class Searching extends StatelessWidget {
                     style: TextStyle(fontSize: 20.0, color: Colors.white),
                     textAlign: TextAlign.center,
                   ),
-                  color: Colors.lightBlue[700],
+                  color: Colors.blue,
                 ),
               ),
             ],
