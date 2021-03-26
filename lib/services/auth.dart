@@ -1,5 +1,4 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:legal_app/pages/classes/post_card.dart';
 import 'package:legal_app/services/constants.dart';
 import '../pages/classes/users.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -22,10 +21,13 @@ class AuthService {
       return null;
     }
     try {
-      var data = await FirebaseFirestore.instance.collection("users").where("email", isEqualTo: currEmail).limit(1).get();
-      print(data.docs.first.data());
+      var data = await FirebaseFirestore.instance
+          .collection("users")
+          .where("email", isEqualTo: currEmail)
+          .limit(1)
+          .get();
       return OurUser.fromData(data.docs.first.data());
-    /*FirebaseFirestore.instance.collection("users").where("email", isEqualTo: currEmail).limit(1).get()
+      /*FirebaseFirestore.instance.collection("users").where("email", isEqualTo: currEmail).limit(1).get()
         .then((value) {
           print(value.docs.first.data());
       if(value.docs.length > 0){
@@ -40,11 +42,23 @@ class AuthService {
     );*/
     } catch (e) {
       print(e);
-      print("hi");
       return null;
     }
   }
 
+  Future<OurUser> getOurUserbyEmail(String email) async {
+    try {
+      var data = await FirebaseFirestore.instance
+          .collection("users")
+          .where("email", isEqualTo: email)
+          .limit(1)
+          .get();
+      return OurUser.fromData(data.docs.first.data());
+    } catch (e) {
+      print(e);
+      return null;
+    }
+  }
 
   Stream<OurUser> get user {
     return _auth.authStateChanges().map(_userFromFirebaseUser);

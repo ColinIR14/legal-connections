@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:legal_app/main.dart';
 import 'package:legal_app/pages/classes/users.dart';
 import 'package:legal_app/pages/home/chat_screen.dart';
 import 'package:legal_app/services/auth.dart';
@@ -16,7 +17,6 @@ class MessageCard extends StatelessWidget {
   }
   DatabaseMethods dbMethods = new DatabaseMethods();
   static AuthService auth = AuthService();
-
 
   @override
   Widget build(BuildContext context) {
@@ -80,6 +80,7 @@ class MessageCard extends StatelessWidget {
       ),
     );
   }
+
   createNewChat(context) async {
     OurUser currUser = await auth.getOurUserWithData();
 
@@ -90,18 +91,18 @@ class MessageCard extends StatelessWidget {
 
     Map<String, dynamic> chatRoom = {
       "users": users,
-      "chatID" : chatRoomId,
-      "chatNames" : chatNames
+      "chatID": chatRoomId,
+      "chatNames": chatNames
     };
 
     dbMethods.createChatRoom(chatRoomId, chatRoom);
 
-    Navigator.push(context, MaterialPageRoute(
-        builder: (context) => ChatScreen(
-          chatID: chatRoomId,
-        )
-    ));
-
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => ChatScreen(
+                  chatID: chatRoomId,
+                )));
   }
 
   getChatRoomId(OurUser user1, OurUser user2) {
@@ -120,8 +121,6 @@ class MessageCard extends StatelessWidget {
     }
   }
 }
-
-
 
 class MyLinksPage extends StatelessWidget {
   List<MessageCard> messages;
