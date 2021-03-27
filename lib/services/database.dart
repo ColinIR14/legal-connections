@@ -24,8 +24,8 @@ class DatabaseMethods {
         var data = await getLawyerSpecialties(email);
         List<String> cats =  new List<String>.from(data.data()['specialties']);
         user.categories = cats;
-        print("Specialties received from database:");
-        print('Specialties: ${user.categories}');
+        //print("Specialties received from database:");
+        //print('Specialties: ${user.categories}');
       }
 
       return user;
@@ -82,12 +82,21 @@ class DatabaseMethods {
       print(e.toString());
     });
   }
+  /*
 
   getUserChats(String email) async {
-    return FirebaseFirestore.instance
-        .collection("chatRoom")
+    return await FirebaseFirestore.instance
+        .collection("chatroom")
         .where('users', arrayContains: email)
         .snapshots();
+  }*/
+
+  getUserChats(String email) async {
+    QuerySnapshot temp = await FirebaseFirestore.instance
+        .collection("chatroom")
+        .where('users', arrayContains: email).get();
+    final chats = temp.docs.map((doc) => doc.data()).toList();
+    return chats;
   }
 
   Future<List<Map>> getPosts() async {

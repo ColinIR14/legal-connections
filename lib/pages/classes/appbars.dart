@@ -27,7 +27,7 @@ class DefaultAppbar extends AppBar {
 }
 
 class AuthAppBar extends AppBar {
-  AuthAppBar(AuthService auth, String title)
+  AuthAppBar(AuthService auth, String title, context)
       : super(
           title: Text(
             title,
@@ -45,6 +45,7 @@ class AuthAppBar extends AppBar {
               icon: Icon(Icons.person),
               onPressed: () async {
                 await auth.signOut();
+                Navigator.pushNamedAndRemoveUntil(context, "register_screen", (Route<dynamic> route) => false);
               },
             )
           ],

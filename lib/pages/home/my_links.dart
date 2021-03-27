@@ -13,15 +13,15 @@ class MessageCard extends StatelessWidget {
   String name;
   String recent_msg;
 
-  MessageCard(String name, String email, String recent_msg) {
+  MessageCard(String name, OurUser user, String recent_msg) {
     this.name = name;
-    this.email = email;
+    this.user = user;
+    this.email = user.email;
     this.recent_msg = recent_msg;
-    this.initOurUser();
   }
 
   initOurUser() async {
-    dbMethods.getOurUserbyEmail(this.email).then((user) => this.user = user);
+    await dbMethods.getOurUserbyEmail(this.email).then((user) => this.user = user);
   }
 
   DatabaseMethods dbMethods = new DatabaseMethods();
@@ -134,9 +134,14 @@ class MessageCard extends StatelessWidget {
 
 class MyLinksPage extends StatelessWidget {
   List<MessageCard> messages;
+  DatabaseMethods dbMethods = new DatabaseMethods();
 
   MyLinksPage(List<MessageCard> messages) {
     this.messages = messages;
+  }
+
+  MyLinksPage.us() {
+    this.messages = null;
   }
 
   @override

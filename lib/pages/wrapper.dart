@@ -73,7 +73,7 @@ OurUser user2 = OurUser.fromData(userInfoMap);
 HomeMenu temp_home = HomeMenu([temp_postcard2, temp_postcard]);
 
 MessageCard temp_msg = MessageCard(
-    user1.name, user1.email, 'this is to test overflow of text so it needs to be long ');
+    user1.name, user1, 'this is to test overflow of text so it needs to be long ');
 
 List<MessageCard> temp_messages = [
   temp_msg,
@@ -110,45 +110,144 @@ class _PageWrapperState extends State<PageWrapper> {
   Stream chats;
   DatabaseMethods dbMethods = new DatabaseMethods();
   OurUser user;
+  List<OurUser> otherUsers;
 
   Widget chatsList() {
+    /*
     return StreamBuilder(
       stream: chats,
       builder: (context, snapshot) {
+        print(snapshot.hasData ? "Length ${snapshot.data.docs.length}": null);
         return snapshot.hasData
             ? ListView.builder(
-            itemCount: snapshot.data.documents.length,
+            itemCount: snapshot.data.docs.length,
             shrinkWrap: true,
-            itemBuilder: (context, index) {
+            itemBuilder: (context, i) {
               return MessageCard(
-                  snapshot.data.documents[index].data['chatNames'].toString()
+                  snapshot.data.docs[i].data()['chatNames'].toString()
                       .replaceAll("_", "")
                       .replaceAll(Constants.currUser.name, ""),
-                snapshot.data.documents[index].data['chatID'].toString()
-                    .replaceAll("_", "")
-                    .replaceAll(Constants.currUser.email, ""),
+                  otherUsers[i],
                 ''
               );
             })
             : Container();
       },
+    );*/
+    return FutureBuilder(
+      future: generateChats(),
+      builder: (context, snapshot) {
+        return snapshot.hasData
+            ? MyLinksPage(snapshot.data): Container();
+      },
     );
   }
 
-  @override
-  void initState() {
-    getChatsFromUser();
-    super.initState();
+  generateChats() async {
+    List messages = await giveMessagesUserObjects();
+    List<MessageCard> messageCards = new List(messages.length);
+    for (var i = 0; i < messages.length; i++) {
+      //print('Postpic: ${posts[i]['picture']}');
+      //print('Postmessage: ${posts[i]['message']}');
+      //print('Postuser: ${posts[i]['user']}');
+
+      messageCards[i] = MessageCard(
+          messages[i]['chatNames'].toString()
+              .replaceAll("_", "")
+              .replaceAll(Constants.currUser.name, ""),
+          messages[i]['otheruser'],
+          '');
+    }
+    //print(posts.length);
+    return messageCards;
   }
 
+  giveMessagesUserObjects() async {
+    var chats = await dbMethods.getUserChats(_auth.getCurrEmail());
+    //print(posts.length);
+    //OurUser user = await dbMethods.getOurUserbyEmail('l@l.com');
+    //OurUser user = await dbMethods.getOurUserbyEmail('f@f.com');
+    //print("Specialties");
+    //var data = await dbMethods.getLawyerSpecialties('l@l.com');
+    //print(data.data()['specialties']);
+    //List<String> cats = new List<String>.from(data.data()['specialties']);
+    //user.categories = cats;
+    //print(user);
+    //print(user.email);
+    //print(user.categories);
+
+    for (int i = 0; i < chats.length; i++) {
+      //print('Userstring: ${posts[i]['user']}');
+      String otherEmail = chats[i]['chatID'].toString()
+          .replaceAll("_", "")
+          .replaceAll(_auth.getCurrEmail(), "");
+      chats[i]['otheruser'] = await dbMethods.getOurUserbyEmail(otherEmail);
+      //print("POST: ");
+      //print(posts[i]['user']);
+    }
+    return chats;
+  }
+
+
+
+
   getChatsFromUser() async {
-    DatabaseMethods().getUserChats(Constants.currUser.email).then((snapshots) {
+    print("getting chats");
+    user = await _auth.getOurUserbyEmail(_auth.getCurrEmail());
+    var snapshots = await DatabaseMethods().getUserChats(user.email);
+    List lst = snapshots.docs.toList();
+    otherUsers = new List();
+    int j = 0;
+    for (int i = 0; i < otherUsers.length; i++) {
+      String otherEmail = lst[i].data()['chatID'].toString()
+          .replaceAll("_", "")
+          .replaceAll(_auth.getCurrEmail(), "");
+      print('Other email: $otherEmail');
+      OurUser other = await _auth.getOurUserbyEmail(otherEmail);
+      otherUsers.add(other);
+    }
+
+
+    await snapshots.forEach((doc) async {
+      String otherEmail = doc.data()['chatID'].toString()
+        .replaceAll("_", "")
+        .replaceAll(_auth.getCurrEmail(), "");
+        print('Other email: $otherEmail');
+    OurUser other = await _auth.getOurUserbyEmail(otherEmail);
+    otherUsers.add(other);
+    j++;
+    });
+    return snapshots;
+
+    /*
+
+    for (int i = 0; i < snapshots.data.docs.length; i++) {
+      String otherEmail = snapshots.data.docs[i].data()['chatID'].toString()
+          .replaceAll("_", "")
+          .replaceAll(_auth.getCurrEmail(), "");
+      print('Other email: $otherEmail');
+      OurUser other = await _auth.getOurUserbyEmail(otherEmail);
+      otherUsers.add(other);
+    }
+    setState(() {
+      chats = snapshots;
+    });
+     */
+
+    /*
+    DatabaseMethods().getUserChats(user.email).then((snapshots) {
       setState(() {
+        for (int i=0; i<snapshots.data.docs.length; i++) {
+          snapshots.data.docs[i].data()['otherUser'] = await _auth.getOurUserbyEmail(snapshots.data.docs[i].data()['chatID'].toString()
+              .replaceAll("_", "")
+              .replaceAll(_auth.getCurrEmail(), ""));
+        }
         chats = snapshots;
         print(
             "chats: ${chats.toString()} user:  ${Constants.currUser.name}");
       });
     });
+     */
   }
 
 
@@ -160,7 +259,7 @@ class _PageWrapperState extends State<PageWrapper> {
   final List<String> _titles = ['Home', 'My Links'];
 
   final List<Widget> _app_bars = [
-    AuthAppBar(_auth, 'Home'),
+    null,
     DefaultAppbar('My Links')
   ];
 
@@ -195,14 +294,14 @@ class _PageWrapperState extends State<PageWrapper> {
   FutureBuilder generate_home() {
     return FutureBuilder(
       future: generatePosts(),
-      builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-        if (!snapshot.hasData) {
-          print(snapshot);
-          print("No data in snapshot");
+      builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot2) {
+        if (!snapshot2.hasData) {
+          //print(snapshot);
+          //print("No data in snapshot");
           return Container();
         } else {
-          print("Snapshot has data");
-          List postCards = snapshot.data;
+          //print("Snapshot has data");
+          List postCards = snapshot2.data;
           /*
           List posts_data = snapshot.data;
           List post_cards;
@@ -228,9 +327,9 @@ class _PageWrapperState extends State<PageWrapper> {
     List posts = await givePostsUserObjects();
     List<PostCard> postCards = new List(posts.length);
     for (var i = 0; i < posts.length; i++) {
-      print('Postpic: ${posts[i]['picture']}');
-      print('Postmessage: ${posts[i]['message']}');
-      print('Postuser: ${posts[i]['user']}');
+      //print('Postpic: ${posts[i]['picture']}');
+      //print('Postmessage: ${posts[i]['message']}');
+      //print('Postuser: ${posts[i]['user']}');
 
       postCards[i] = PostCard(
           posts[i]['user'],
@@ -241,29 +340,29 @@ class _PageWrapperState extends State<PageWrapper> {
           3);
 
     }
-    print(posts.length);
+    //print(posts.length);
     return postCards;
   }
 
   givePostsUserObjects() async {
     var posts = await dbMethods.getPosts();
-    print(posts.length);
+    //print(posts.length);
     OurUser user = await dbMethods.getOurUserbyEmail('l@l.com');
     //OurUser user = await dbMethods.getOurUserbyEmail('f@f.com');
-    print("Specialties");
+    //print("Specialties");
     var data = await dbMethods.getLawyerSpecialties('l@l.com');
-    print(data.data()['specialties']);
+    //print(data.data()['specialties']);
     List<String> cats = new List<String>.from(data.data()['specialties']);
     //user.categories = cats;
-    print(user);
-    print(user.email);
-    print(user.categories);
+    //print(user);
+    //print(user.email);
+    //print(user.categories);
 
     for (int i = 0; i < posts.length; i++) {
-      print('Userstring: ${posts[i]['user']}');
+      //print('Userstring: ${posts[i]['user']}');
       posts[i]['user'] = await dbMethods.getOurUserbyEmail(posts[i]['user']);
-      print("POST: ");
-      print(posts[i]['user']);
+      //print("POST: ");
+      //print(posts[i]['user']);
     }
     return posts;
   }
@@ -277,9 +376,10 @@ class _PageWrapperState extends State<PageWrapper> {
     });
 
     return Scaffold(
-        appBar: _app_bars[_current_page],
+        appBar: _current_page == 0 ? AuthAppBar(_auth, 'Home', context) : _app_bars[_current_page],
         // body: _pages[_current_page],
-        body: _current_page == 0 ? generate_home() :_pages[_current_page],
+        //body: _current_page == 0 ? generate_home() :_pages[_current_page],
+        body: _current_page == 0 ? generate_home() : chatsList(),
         floatingActionButton: FloatingActionButton(
             elevation: 10.0,
             child: Icon(Icons.add),
