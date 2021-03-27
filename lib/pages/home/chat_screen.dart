@@ -27,12 +27,14 @@ class _ChatScreenState extends State<ChatScreen> {
     return StreamBuilder(
       stream: chats,
       builder: (context, snapshot) {
+        print("Has data?");
+        print(snapshot.hasData);
         return snapshot.hasData ? ListView.builder(
             itemCount: snapshot.data.docs.length,
             itemBuilder: (context, index) {
               return MessageTile(
-                message: snapshot.data.docs[index].data["message"],
-                sentByMe:  currUser.email == snapshot.data.docs[index].data["sendBy"],
+                message: snapshot.data.docs[index].data()["message"],
+                sentByMe:  auth.getCurrEmail() == snapshot.data.docs[index].data()["sendBy"],
               );
             }
         ) : Container();
@@ -43,7 +45,7 @@ class _ChatScreenState extends State<ChatScreen> {
   addMessage() {
     if (messageEditingController.text.isNotEmpty) {
       Map<String, dynamic> chatMessageMap = {
-        "sendBy": auth.currEmail,
+        "sendBy": auth.getCurrEmail(),
         "message": messageEditingController.text,
         "time": DateTime
             .now()
@@ -98,7 +100,7 @@ class _ChatScreenState extends State<ChatScreen> {
                           decoration: InputDecoration(
                               hintText: "Message ...",
                               hintStyle: TextStyle(
-                                color: Colors.white,
+                                color: Colors.black,
                                 fontSize: 16,
                               ),
                               border: InputBorder.none

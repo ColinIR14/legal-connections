@@ -18,7 +18,17 @@ class DatabaseMethods {
           .limit(1)
           .get();
       //print(data.docs.first.data());
-      return OurUser.fromData(data.docs.first.data());
+      //return OurUser.fromData(data.docs.first.data());
+      OurUser user =  OurUser.fromData(data.docs.first.data());
+      if (user.type.toLowerCase() == 'lawyer') {
+        var data = await getLawyerSpecialties(email);
+        List<String> cats =  new List<String>.from(data.data()['specialties']);
+        user.categories = cats;
+        print("Specialties received from database:");
+        print('Specialties: ${user.categories}');
+      }
+
+      return user;
     } catch (e) {
       //print(e);
       //print("hi");
@@ -30,6 +40,17 @@ class DatabaseMethods {
     FirebaseFirestore.instance.collection("users").add(userMap).catchError((e) {
       print(e.toString());
     });
+  }
+
+  uploadLawyerSpecialties(List<String> specialtyList, String lawyerEmail) {
+    FirebaseFirestore.instance.collection("specialties").doc(lawyerEmail)
+        .set({'specialties': specialtyList}).catchError((e) => print(e));
+  }
+
+  getLawyerSpecialties(String lawyerEmail) async {
+    var specialties =  await FirebaseFirestore.instance.collection("specialties").doc(lawyerEmail)
+        .get().catchError((e) => print(e));
+    return specialties;
   }
 
   createChatRoom(String chatRoomID, chatRoomMap) {
@@ -53,7 +74,7 @@ class DatabaseMethods {
 
   Future<void> addMessage(String chatRoomId, chatMessageData) {
     FirebaseFirestore.instance
-        .collection("chatRoom")
+        .collection("chatroom")
         .doc(chatRoomId)
         .collection("chats")
         .add(chatMessageData)
@@ -63,7 +84,7 @@ class DatabaseMethods {
   }
 
   getUserChats(String email) async {
-    return await FirebaseFirestore.instance
+    return FirebaseFirestore.instance
         .collection("chatRoom")
         .where('users', arrayContains: email)
         .snapshots();

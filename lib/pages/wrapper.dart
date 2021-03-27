@@ -228,8 +228,10 @@ class _PageWrapperState extends State<PageWrapper> {
     List posts = await givePostsUserObjects();
     List<PostCard> postCards = new List(posts.length);
     for (var i = 0; i < posts.length; i++) {
-      print(posts[i]['picture']);
-      print(posts[i]['message']);
+      print('Postpic: ${posts[i]['picture']}');
+      print('Postmessage: ${posts[i]['message']}');
+      print('Postuser: ${posts[i]['user']}');
+
       postCards[i] = PostCard(
           posts[i]['user'],
           posts[i]['picture'],
@@ -241,6 +243,29 @@ class _PageWrapperState extends State<PageWrapper> {
     }
     print(posts.length);
     return postCards;
+  }
+
+  givePostsUserObjects() async {
+    var posts = await dbMethods.getPosts();
+    print(posts.length);
+    OurUser user = await dbMethods.getOurUserbyEmail('l@l.com');
+    //OurUser user = await dbMethods.getOurUserbyEmail('f@f.com');
+    print("Specialties");
+    var data = await dbMethods.getLawyerSpecialties('l@l.com');
+    print(data.data()['specialties']);
+    List<String> cats = new List<String>.from(data.data()['specialties']);
+    //user.categories = cats;
+    print(user);
+    print(user.email);
+    print(user.categories);
+
+    for (int i = 0; i < posts.length; i++) {
+      print('Userstring: ${posts[i]['user']}');
+      posts[i]['user'] = await dbMethods.getOurUserbyEmail(posts[i]['user']);
+      print("POST: ");
+      print(posts[i]['user']);
+    }
+    return posts;
   }
 
   @override
@@ -255,6 +280,14 @@ class _PageWrapperState extends State<PageWrapper> {
         appBar: _app_bars[_current_page],
         // body: _pages[_current_page],
         body: _current_page == 0 ? generate_home() :_pages[_current_page],
+        floatingActionButton: FloatingActionButton(
+            elevation: 10.0,
+            child: Icon(Icons.add),
+            onPressed: (){
+              print('Add post');
+              Navigator.pushNamed(context, 'create_post');
+            }
+        ),
 
         bottomNavigationBar: Container(
             decoration: BoxDecoration(
@@ -294,16 +327,11 @@ class _PageWrapperState extends State<PageWrapper> {
                       label: 'Messages'),
                 ])));
   }
-
-  givePostsUserObjects() async {
-    var posts = await dbMethods.getPosts();
-    print(posts.length);
-
-    for (int i = 0; i < posts.length; i++) {
-      posts[i]['user'] = await dbMethods.getOurUserbyEmail(posts[i]['user']);
-      print("POST: ");
-      print(posts[i]['user']);
-    }
-    return posts;
+  signOut() {
+    Navigator.pushNamedAndRemoveUntil(context, "register_screen", (Route<dynamic> route) => false);
   }
+
+
 }
+
+

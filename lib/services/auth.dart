@@ -49,7 +49,7 @@ class AuthService {
 
   Future signOut() async {
     try {
-      return await _auth.signOut();
+      await _auth.signOut();
     } catch (e) {
       print(e.toString());
       return null;
@@ -99,5 +99,9 @@ class AuthService {
       print(e.toString());
       return null;
     }
+  }
+
+  String getCurrEmail() {
+    return _auth.currentUser.email;
   }
 }

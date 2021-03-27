@@ -91,7 +91,7 @@ class _PostCardState extends State<PostCard> {
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     image: DecorationImage(
-                      image: NetworkImage(poster.profile_pic),
+                      image: NetworkImage(poster.profile_pic == null ? 'https://cdn.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png' : poster.profile_pic),
                       fit: BoxFit.fill,
                     ),
                   ),
@@ -128,7 +128,7 @@ class _PostCardState extends State<PostCard> {
             height: 300,
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: NetworkImage(this.pic),
+                image: NetworkImage(this.pic == null ? 'https://media.sproutsocial.com/uploads/2017/02/10x-featured-social-media-image-size.png' : this.pic),
                 fit: BoxFit
                     .fitHeight, // this part may need to be changed depending on the aspect ratio of images allowed. should crop/fit better
               ),

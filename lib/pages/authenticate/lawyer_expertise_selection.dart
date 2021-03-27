@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:legal_app/pages/classes/users.dart';
+import 'package:legal_app/services/auth.dart';
+import 'package:legal_app/services/constants.dart';
+import 'package:legal_app/services/database.dart';
 
 class Expertise extends StatelessWidget {
+  DatabaseMethods dbMethods = new DatabaseMethods();
+  AuthService auth = new AuthService();
+
+
   @override
   Widget build(BuildContext context) {
     var selectedCat = <String>[];
@@ -260,8 +267,10 @@ class Expertise extends StatelessWidget {
                   padding: EdgeInsets.only(top: 30, bottom: 30.0),
                   child: RaisedButton(
                     onPressed: () {
-                      var refinedCat = selectedCat.toSet().toList();
+                      List<String> refinedCat = selectedCat.toSet().toList();
                       print(refinedCat);
+                      dbMethods.uploadLawyerSpecialties(refinedCat, auth.getCurrEmail());
+                      Navigator.pushNamed(context, 'page_wrapper');
                       //Lawyer.categories = refinedCat;
                       OurUser().categories = refinedCat;
                       print(OurUser().categories);

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:legal_app/pages/wrapper.dart';
 import 'package:legal_app/services/auth.dart';
 
 class DefaultAppbar extends AppBar {

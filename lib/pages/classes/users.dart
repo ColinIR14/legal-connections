@@ -20,7 +20,7 @@ class OurUser {
         email = data['email'],
         type = data['type'],
         profile_pic = data['profile_pic'],
-        location = data['location'];
+        location = data['location'] == '' ? 'Toronto' : data['location'];
 
   OurUser.n(
       String name,
