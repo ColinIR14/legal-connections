@@ -133,12 +133,12 @@ class _MyHomePageState extends State<LegalSelection> {
                   //{
                   //   createpopup(context);
                   // }
-                  if (valueChoose != null) ;
+                  if (valueChoose != null)
                   {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => CreateProfileQ()));
+                            builder: (context) => CreateProfileQ(category: valueChoose)));
                   }
                 },
                 child: Text(

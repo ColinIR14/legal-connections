@@ -2,10 +2,16 @@ import 'package:flutter/material.dart';
 import '../classes/users.dart';
 
 class CaseProfile extends StatelessWidget {
-  Client client;
+  OurUser client;
+  String category;
+  String text;
+  List<String> photos;
 
-  CaseProfile(Client client) {
+  CaseProfile(OurUser client, String category, String text, List<String> photos) {
     this.client = client;
+    this.category = category;
+    this.text = text;
+    this.photos = photos;
   }
 
   @override
@@ -64,7 +70,7 @@ class CaseProfile extends StatelessWidget {
               ),
               Container(
                   child: Text(
-                '${client.cases[0][0]}', //this needs to be changed: may mot be first case
+                category, //this needs to be changed: may mot be first case
                 style: TextStyle(
                   fontSize: 20.0,
                 ),
@@ -72,10 +78,10 @@ class CaseProfile extends StatelessWidget {
               Container(
                   margin: EdgeInsets.fromLTRB(0.0, 20.0, 0.0, 20.0),
                   child: Text(
-                    '${client.cases[0][1]}', //also  needs to be changed
+                    text, //also  needs to be changed
                     textAlign: TextAlign.left,
                   )),
-              Gallery(client.other_pics),
+              Gallery(photos),
               Container(
                 margin: EdgeInsets.symmetric(vertical: 5.0, horizontal: 0.0),
                 alignment: Alignment.center,
@@ -120,6 +126,9 @@ class Gallery extends StatelessWidget {
 
   List<Widget> _generate_gallery() {
     List<Widget> lst = [];
+    if (pics == null) {
+      return lst;
+    }
     lst.add(this._generate_row_one(pics[0]));
 
     var len = pics.length;

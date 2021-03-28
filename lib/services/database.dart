@@ -6,7 +6,7 @@ class DatabaseMethods {
   getUserByEmail(String email) {
     return FirebaseFirestore.instance
         .collection("users")
-        .where("email", isEqualTo: email)
+        .where("email", isEqualTo: email.toLowerCase())
         .get();
   }
 
@@ -14,7 +14,7 @@ class DatabaseMethods {
     try {
       var data = await FirebaseFirestore.instance
           .collection("users")
-          .where("email", isEqualTo: email)
+          .where("email", isEqualTo: email.toLowerCase())
           .limit(1)
           .get();
       //print(data.docs.first.data());
@@ -44,6 +44,12 @@ class DatabaseMethods {
 
   uploadPost(postMap) {
     FirebaseFirestore.instance.collection("posts").add(postMap).catchError((e) {
+      print(e.toString());
+    });
+  }
+
+  uploadCase(caseMap) {
+    FirebaseFirestore.instance.collection("cases").add(caseMap).catchError((e) {
       print(e.toString());
     });
   }
@@ -105,6 +111,8 @@ class DatabaseMethods {
     return chats;
   }
 
+
+
   Future<List<Map>> getPosts() async {
     QuerySnapshot temp =
         await FirebaseFirestore.instance.collection('posts').get();
@@ -112,6 +120,23 @@ class DatabaseMethods {
     // print(posts);
     // print(posts.runtimeType);
     return posts;
+  }
+
+  Future<List<Map>> getCases(OurUser user) async {
+    if (user.type.toLowerCase() == 'client') {
+      QuerySnapshot temp = await FirebaseFirestore.instance
+          .collection("cases")
+          .where('user', isEqualTo: user.email).get();
+      final cases = temp.docs.map((doc) => doc.data()).toList();
+      return cases;
+    } else {
+      //print(user.categories);
+      QuerySnapshot temp = await FirebaseFirestore.instance
+          .collection("cases")
+          .where('category', whereIn: user.categories).get();
+      final cases = temp.docs.map((doc) => doc.data()).toList();
+      return cases;
+    }
   }
 
   createNewChat(OurUser otherUser) async {

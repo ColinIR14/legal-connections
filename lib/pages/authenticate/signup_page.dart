@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:legal_app/pages/authenticate/legal_selection.dart';
 import 'package:legal_app/services/auth.dart';
+import 'package:legal_app/services/constants.dart';
 import 'package:legal_app/services/database.dart';
 import '../home/cases_menu.dart';
 import '../classes/scroll_menu.dart';
@@ -174,7 +175,7 @@ class _SignupFormState extends State<SignupForm> {
                                   await _auth.registerWithEmailAndPassword(
                                       email, password);
                               Map<String, String> userInfoMap = {
-                                "email": email,
+                                "email": email.toLowerCase(),
                                 "name": first + " " + last,
                                 "type": type,
                                 "profile_pic": 'https://media.sproutsocial.com/uploads/2017/02/10x-featured-social-media-image-size.png',
@@ -182,7 +183,7 @@ class _SignupFormState extends State<SignupForm> {
                               };
                               if (type.toLowerCase() == 'lawyer') {
                                 userInfoMap = {
-                                  "email": email,
+                                  "email": email.toLowerCase(),
                                   "name": first + " " + last,
                                   "type": type,
                                   "profile_pic": 'https://media.sproutsocial.com/uploads/2017/02/10x-featured-social-media-image-size.png',
@@ -194,6 +195,7 @@ class _SignupFormState extends State<SignupForm> {
                                 setState(() => error = 'Invalid values');
                               } else {
                                 databaseMethods.uploadUserInfo(userInfoMap);
+                                Constants.currUser = await databaseMethods.getOurUserbyEmail(email.toLowerCase());
                                 if (isClient == 'Client') {
                                   Navigator.push(
                                       context,

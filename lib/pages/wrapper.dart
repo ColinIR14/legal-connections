@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import "package:flutter/material.dart";
 import 'package:legal_app/pages/authenticate/edit_profile.dart';
+import 'package:legal_app/pages/authenticate/legal_selection.dart';
 import 'package:legal_app/pages/classes/appbars.dart';
 import 'package:legal_app/pages/home/cases_menu.dart';
 import 'package:legal_app/services/auth.dart';
@@ -33,9 +34,9 @@ Client user1 = Client(
   ],
 );
 
-CaseCard temp_case = CaseCard(user1);
-CaseCard temp_case2 = CaseCard(user2);
-
+//CaseCard temp_case = CaseCard(user1);
+//CaseCard temp_case2 = CaseCard(user2);
+/*
 CasesMenu temp_menu = CasesMenu([
   temp_case2,
   temp_case,
@@ -46,7 +47,7 @@ CasesMenu temp_menu = CasesMenu([
   temp_case,
   temp_case
 ]);
-
+*/
 PostCard temp_postcard = PostCard(
     user1,
     'https://media.sproutsocial.com/uploads/2017/02/10x-featured-social-media-image-size.png',
@@ -261,11 +262,11 @@ class _PageWrapperState extends State<PageWrapper> {
     temp_home,
     MyLinksPage(temp_messages), null, null
   ];
-  final List<String> _titles = ['Home', 'My Links', 'Notifications', 'Profile'];
+  final List<String> _titles = ['Home', 'My Links', 'Notifications', 'Profile', 'Cases'];
 
   final List<Widget> _app_bars = [
     null,
-    DefaultAppbar('My Links'), DefaultAppbar('Notifications'), DefaultAppbar('Profile')
+    DefaultAppbar('My Links'), DefaultAppbar('Notifications'), DefaultAppbar('Profile'), DefaultAppbar('Cases')
   ];
 
   // If Appbar needs to change(like some should show logout/settings icon) then add a
@@ -274,11 +275,11 @@ class _PageWrapperState extends State<PageWrapper> {
   void onTabTapped(int index) {
     //print(Constants.currUser.email);
     //print("hi");
-    _auth.getOurUserWithData().then((value) {
+    //_auth.getOurUserWithData().then((value) {
       //print("here");
       //print(value.name);
       //print(value.email);
-    });
+    //});
     setState(() {
       _current_page = index;
     });
@@ -305,11 +306,11 @@ class _PageWrapperState extends State<PageWrapper> {
           //print("No data in snapshot");
           return Container();
         } else {
-            if (snapshot2.data is List<MessageCard>) {
-              return Container();
+            if (snapshot2.data is List<PostCard>) {
+              List postCards = snapshot2.data;
+              return HomeMenu(postCards);
             }
           //print("Snapshot has data");
-          List postCards = snapshot2.data;
           /*
           List posts_data = snapshot.data;
           List post_cards;
@@ -325,7 +326,8 @@ class _PageWrapperState extends State<PageWrapper> {
           }
 
            */
-          return HomeMenu(postCards);
+          return Container();
+
         }
       },
     );
@@ -375,6 +377,52 @@ class _PageWrapperState extends State<PageWrapper> {
     return posts;
   }
 
+  FutureBuilder generateCases() {
+    return FutureBuilder(
+      future: loadCases(),
+      builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot3) {
+        if (!snapshot3.hasData) {
+          //print(snapshot);
+          //print("No data in snapshot");
+          return Container();
+        } else {
+          if (snapshot3.data is List<CaseCard>) {
+            List caseCards = snapshot3.data;
+            return ScrollCases(caseCards);
+          }
+          //print("Snapshot has data");
+          return Container();
+        }
+      },
+    );
+  }
+
+  loadCases() async {
+    List cases = await giveCasesUserObjects();
+    List<CaseCard> caseCards = new List(cases.length);
+    for (var i = 0; i < cases.length; i++) {
+
+
+      caseCards[i] = CaseCard(
+          cases[i]['user'],
+          cases[i]['category'],
+          cases[i]['content'],
+          List<String>.from(cases[i]['photos']));
+
+    }
+    //print(posts.length);
+    return caseCards;
+  }
+
+  giveCasesUserObjects() async {
+    var cases = await dbMethods.getCases(Constants.currUser);
+
+    for (int i = 0; i < cases.length; i++) {
+      cases[i]['user'] = await dbMethods.getOurUserbyEmail(cases[i]['user']);
+    }
+    return cases;
+  }
+
   @override
   Widget build(BuildContext context) {
     _auth.getOurUserWithData().then((value) {
@@ -387,13 +435,20 @@ class _PageWrapperState extends State<PageWrapper> {
         appBar: _current_page == 0 ? AuthAppBar(_auth, 'Home', context) : _app_bars[_current_page],
         // body: _pages[_current_page],
         //body: _current_page == 0 ? generate_home() :_pages[_current_page],
-        body: _current_page == 0 ? generate_home() : _current_page == 1? chatsList(): Profile(),
-        floatingActionButton: _current_page == 0 ? FloatingActionButton(
+        body: [generate_home(), chatsList(), null, Profile(), generateCases()][_current_page],
+        floatingActionButton: [0, 4].contains(_current_page) ? FloatingActionButton(
             elevation: 10.0,
             child: Icon(Icons.add),
             onPressed: (){
-              print('Add post');
-              Navigator.pushNamed(context, 'create_post');
+              if (_current_page == 4) {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => MyApp()));
+              } else {
+                //print('Add post');
+                Navigator.pushNamed(context, 'create_post');
+              }
             }
         ) : null,
 
@@ -430,9 +485,14 @@ class _PageWrapperState extends State<PageWrapper> {
                       label: 'Notifications'),
                   BottomNavigationBarItem(
                       icon: Icon(
-                        Icons.account_circle_outlined,
+                        Icons.account_circle,
                       ),
                       label: 'Profile'),
+                  BottomNavigationBarItem(
+                      icon: Icon(
+                        Icons.account_balance_wallet,
+                      ),
+                      label: 'Cases'),
                 ])));
   }
   signOut() {

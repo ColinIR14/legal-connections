@@ -3,10 +3,16 @@ import '../home/case_profile.dart';
 import 'users.dart';
 
 class CaseCard extends StatelessWidget {
-  Client client;
+  OurUser client;
+  String category;
+  String text;
+  List<String> photos;
 
-  CaseCard(Client client) {
+  CaseCard(OurUser client, String category, String text, List<String> photos) {
     this.client = client;
+    this.category = category;
+    this.text = text;
+    this.photos = photos;
   }
 
   @override
@@ -63,7 +69,8 @@ class CaseCard extends StatelessWidget {
           ),
           Container(
               child: Text(
-            '${client.cases[0][0]}', //needs to be changed. may not be first case
+            //'${client.cases[0][0]}', //needs to be changed. may not be first case
+                category,
             style: TextStyle(
               fontSize: 20.0,
             ),
@@ -71,7 +78,8 @@ class CaseCard extends StatelessWidget {
           Container(
               margin: EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 0.0),
               child: Text(
-                '${client.cases[0][1]}', //also needs to be changed. same reason
+                //'${client.cases[0][1]}', //also needs to be changed. same reason
+                text,
                 textAlign: TextAlign.left,
                 overflow: TextOverflow.fade,
                 maxLines: 4,
@@ -85,7 +93,7 @@ class CaseCard extends StatelessWidget {
                     context,
                     MaterialPageRoute(
                         builder: (BuildContext context) =>
-                            CaseProfile(client)));
+                            CaseProfile(client, category, text, photos)));
               },
               child: Text(
                 'View Profile',

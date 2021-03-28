@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:legal_app/services/auth.dart';
+import 'package:legal_app/services/constants.dart';
 
 class LoginForm extends StatefulWidget {
   @override
@@ -94,10 +95,12 @@ class _LoginFormState extends State<LoginForm> {
                           onPressed: () async {
                             if (_formKey.currentState.validate()) {
                               dynamic result = await _auth
-                                  .signInWithEmailAndPassword(email, password);
+                                  .signInWithEmailAndPassword(email.toLowerCase(), password);
                               if (result == null) {
                                 setState(() => error = 'Sign in failed');
                               } else {
+                                _auth.getOurUserbyEmail(email.toLowerCase())
+                                .then((user) => Constants.currUser = user);
                                 Navigator.pushNamed(context, 'page_wrapper');
                               }
                             }
@@ -113,7 +116,7 @@ class _LoginFormState extends State<LoginForm> {
                           onPressed: () async {
                             if (_formKey.currentState.validate()) {
                               dynamic result = await _auth
-                                  .signInWithEmailAndPassword(email, password);
+                                  .signInWithEmailAndPassword(email.toLowerCase(), password);
                               if (result == null) {
                                 setState(() => error = 'Sign in failed');
                               } else {

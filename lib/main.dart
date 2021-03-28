@@ -58,8 +58,8 @@ PostCard temp_postcard = PostCard(
 
 HomeMenu temp_home = HomeMenu([temp_postcard, temp_postcard]);
 
-CaseCard temp_case = CaseCard(user1);
-
+//CaseCard temp_case = CaseCard(user1);
+/*
 CasesMenu temp_menu = CasesMenu([
   temp_case,
   temp_case,
@@ -69,8 +69,8 @@ CasesMenu temp_menu = CasesMenu([
   temp_case,
   temp_case
 ]);
-
-CaseProfile temp_profile = CaseProfile(user1);
+*/
+//CaseProfile temp_profile = CaseProfile(user1);
 
 LawyerProfile temp_lawyer_profile = LawyerProfile(lawyer1);
 
@@ -80,14 +80,14 @@ void main() async {
   runApp(StreamProvider<OurUser>.value(
       value: AuthService().user,
       child: MaterialApp(
+        //initialRoute: 'cases_menu',
         initialRoute: 'register_screen',
-        // initialRoute: 'register_screen',
         routes: {
           'wrapper': (context) => Wrapper(),
           'sign_up': (context) => SignupForm(),
           'register_screen': (context) => InitScreen(),
-          'temp_case_profile': (context) => temp_profile,
-          'cases_menu': (context) => temp_menu,
+          //'temp_case_profile': (context) => temp_profile,
+          //'cases_menu': (context) => temp_menu,
           'login': (context) => LoginForm(),
           'home_menu': (context) => temp_home,
           'temp_lawyer_profile': (context) => temp_lawyer_profile,

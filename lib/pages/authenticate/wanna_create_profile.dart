@@ -3,6 +3,8 @@ import '../wrapper.dart';
 import 'upload_case_details.dart';
 
 class CreateProfileQ extends StatelessWidget {
+  final String category;
+  CreateProfileQ({Key key, @required this.category}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return (Scaffold(
@@ -37,7 +39,7 @@ class CreateProfileQ extends StatelessWidget {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => CaseDetails()));
+                              builder: (context) => CaseDetails(category: category)));
                     },
                     child: Text(
                       'Yes',
