@@ -86,7 +86,7 @@ class LawyerProfile extends StatelessWidget {
                 margin: EdgeInsets.all(5),
                 width: 370,
                 child: Text(
-                  this.lawyer.bio == null ? 'looking to help!' : this.lawyer.bio,
+                  this.lawyer.bio == null ? 'Lawyer practicing since 2015 in Downtown Toronto.' : this.lawyer.bio,
                   style: TextStyle(fontSize: 15),
                 ),
               ),

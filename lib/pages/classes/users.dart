@@ -20,7 +20,8 @@ class OurUser {
         email = data['email'],
         type = data['type'],
         profile_pic = data['profile_pic'],
-        location = data['location'] == '' ? 'Toronto' : data['location'];
+        location = data['location'] == '' ? 'Toronto' : data['location'],
+        bio = data['bio'] == '' ? 'Lawyer specializing in Malpractice since 2015. Happy to help.' : data['bio'];
 
   OurUser.n(
       String name,

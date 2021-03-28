@@ -1,6 +1,9 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:legal_app/services/auth.dart';
+import 'package:legal_app/services/database.dart';
+import '../classes/users.dart';
 
 class Profile extends StatefulWidget {
   @override
@@ -14,6 +17,8 @@ class _ProfileState extends State<Profile> {
   final _form_key2 = GlobalKey<FormState>();
   File _image;
   final picker = ImagePicker();
+  AuthService auth = new AuthService();
+  DatabaseMethods dbMethods = new DatabaseMethods();
 
   Future getImage() async {
     final pickedFile = await picker.getImage(source: ImageSource.gallery);
@@ -110,6 +115,16 @@ class _ProfileState extends State<Profile> {
                       _form_key2.currentState.validate() &&
                       _image != null) {
                     print('ok');
+                    OurUser user = await dbMethods.getOurUserbyEmail(auth.getCurrEmail());
+
+                    Map<String, String> userInfoMap = {
+                      "email": user.email,
+                      "name": title,
+                      "type": user.type,
+                      "profile_pic": 'https://media.sproutsocial.com/uploads/2017/02/10x-featured-social-media-image-size.png',
+                      "location": 'Canada',
+                      "bio": text,
+                    };
                   }
                 },
                 child: Padding(

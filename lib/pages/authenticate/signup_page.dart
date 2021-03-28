@@ -180,6 +180,16 @@ class _SignupFormState extends State<SignupForm> {
                                 "profile_pic": 'https://media.sproutsocial.com/uploads/2017/02/10x-featured-social-media-image-size.png',
                                 "location": 'Canada'
                               };
+                              if (type.toLowerCase() == 'lawyer') {
+                                userInfoMap = {
+                                  "email": email,
+                                  "name": first + " " + last,
+                                  "type": type,
+                                  "profile_pic": 'https://media.sproutsocial.com/uploads/2017/02/10x-featured-social-media-image-size.png',
+                                  "location": 'Canada',
+                                  "bio": "Lawyer practicing in Downtown Toronto since 2010. Looking to help those who neeed a bit of support."
+                                };
+                              }
                               if (result == null) {
                                 setState(() => error = 'Invalid values');
                               } else {
