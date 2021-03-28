@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import "package:flutter/material.dart";
+import 'package:legal_app/pages/authenticate/edit_profile.dart';
 import 'package:legal_app/pages/classes/appbars.dart';
 import 'package:legal_app/pages/home/cases_menu.dart';
 import 'package:legal_app/services/auth.dart';
@@ -137,8 +138,12 @@ class _PageWrapperState extends State<PageWrapper> {
     return FutureBuilder(
       future: generateChats(),
       builder: (context, snapshot) {
-        return snapshot.hasData
-            ? MyLinksPage(snapshot.data): Container();
+        if (snapshot.hasData) {
+          if (snapshot.data is List<MessageCard>) {
+            return MyLinksPage(snapshot.data);
+          }
+        }
+        return Container();
       },
     );
   }
@@ -254,13 +259,13 @@ class _PageWrapperState extends State<PageWrapper> {
 
   final List<Widget> _pages = [
     temp_home,
-    MyLinksPage(temp_messages),
+    MyLinksPage(temp_messages), null, null
   ];
-  final List<String> _titles = ['Home', 'My Links'];
+  final List<String> _titles = ['Home', 'My Links', 'Notifications', 'Profile'];
 
   final List<Widget> _app_bars = [
     null,
-    DefaultAppbar('My Links')
+    DefaultAppbar('My Links'), DefaultAppbar('Notifications'), DefaultAppbar('Profile')
   ];
 
   // If Appbar needs to change(like some should show logout/settings icon) then add a
@@ -300,6 +305,9 @@ class _PageWrapperState extends State<PageWrapper> {
           //print("No data in snapshot");
           return Container();
         } else {
+            if (snapshot2.data is List<MessageCard>) {
+              return Container();
+            }
           //print("Snapshot has data");
           List postCards = snapshot2.data;
           /*
@@ -379,15 +387,15 @@ class _PageWrapperState extends State<PageWrapper> {
         appBar: _current_page == 0 ? AuthAppBar(_auth, 'Home', context) : _app_bars[_current_page],
         // body: _pages[_current_page],
         //body: _current_page == 0 ? generate_home() :_pages[_current_page],
-        body: _current_page == 0 ? generate_home() : chatsList(),
-        floatingActionButton: FloatingActionButton(
+        body: _current_page == 0 ? generate_home() : _current_page == 1? chatsList(): Profile(),
+        floatingActionButton: _current_page == 0 ? FloatingActionButton(
             elevation: 10.0,
             child: Icon(Icons.add),
             onPressed: (){
               print('Add post');
               Navigator.pushNamed(context, 'create_post');
             }
-        ),
+        ) : null,
 
         bottomNavigationBar: Container(
             decoration: BoxDecoration(
@@ -422,9 +430,9 @@ class _PageWrapperState extends State<PageWrapper> {
                       label: 'Notifications'),
                   BottomNavigationBarItem(
                       icon: Icon(
-                        Icons.message,
+                        Icons.account_circle_outlined,
                       ),
-                      label: 'Messages'),
+                      label: 'Profile'),
                 ])));
   }
   signOut() {

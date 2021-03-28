@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../wrapper.dart';
 import 'upload_case_details.dart';
 
 class CreateProfileQ extends StatelessWidget {
@@ -49,7 +50,10 @@ class CreateProfileQ extends StatelessWidget {
                   width: 150,
                   child: RaisedButton(
                       onPressed: () {
-                        Navigator.pushNamed(context, 'page_wrapper');
+                        print("buffer");
+                        print("Hello");
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) => PageWrapper()));
                       },
                       child: Text(
                         'Not Now',

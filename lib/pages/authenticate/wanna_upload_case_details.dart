@@ -50,7 +50,8 @@ class UploadQ extends StatelessWidget {
                   onPressed: () {
                     print("Going to page wrapper");
                     //return PageWrapper();Don't want them to go back to the sign in page
-                    Navigator.pushNamed(context, 'register_screen');
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => PageWrapper()));
 
                     //Navigator.pushNamed(context, 'page_wrapper');
                     print('pushing to page wrapper');

@@ -59,7 +59,8 @@ class CaseDetails extends StatelessWidget {
                 child: RaisedButton(
                   onPressed: () {
                     //upload details
-                    Navigator.pushNamed(context, 'page_wrapper');
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => PageWrapper()));
                     //Navigator.of(context).pushNamed('home_menu');
                   },
                   child: Text(

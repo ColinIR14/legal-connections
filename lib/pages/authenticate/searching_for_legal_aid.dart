@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:legal_app/pages/wrapper.dart';
 import 'legal_selection.dart';
 
 class Searching extends StatelessWidget {
@@ -76,6 +77,8 @@ class Searching extends StatelessWidget {
                 child: RaisedButton(
                   onPressed: () {
                     createpopup(context);
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => PageWrapper()));
                   },
                   child: Text(
                     'Not Now',

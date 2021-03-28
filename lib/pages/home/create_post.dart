@@ -1,6 +1,8 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:legal_app/services/auth.dart';
+import 'package:legal_app/services/database.dart';
 
 class CreatePost extends StatefulWidget {
   @override
@@ -14,6 +16,8 @@ class _CreatePostState extends State<CreatePost> {
   final _form_key2 = GlobalKey<FormState>();
   File _image;
   final picker = ImagePicker();
+  DatabaseMethods dbMethods = new DatabaseMethods();
+  AuthService auth = new AuthService();
 
   Future getImage() async {
     final pickedFile = await picker.getImage(source: ImageSource.gallery);
@@ -108,8 +112,15 @@ class _CreatePostState extends State<CreatePost> {
               child: FlatButton(
                 onPressed: () async {
                   if (_form_key1.currentState.validate() &&
-                      _form_key2.currentState.validate() &&
-                      _image != null) {
+                      _form_key2.currentState.validate()) {
+
+                    Map<String, dynamic> postMap = {
+                      'message': text,
+                      'picture': 'https://thumbnails.expedia.com/WAIOLrW6W9eerDtrV8bChFwICn4=/536x384/smart/filters:quality(60)/a.cdn-hotels.com/cos/heroimage/Toronto_EEX15P.jpg',
+                      'user': auth.getCurrEmail()
+                    };
+                    dbMethods.uploadPost(postMap);
+                    Navigator.pop(context);
                     print('ok');
                   }
                 },

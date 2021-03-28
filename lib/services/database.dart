@@ -42,6 +42,12 @@ class DatabaseMethods {
     });
   }
 
+  uploadPost(postMap) {
+    FirebaseFirestore.instance.collection("posts").add(postMap).catchError((e) {
+      print(e.toString());
+    });
+  }
+
   uploadLawyerSpecialties(List<String> specialtyList, String lawyerEmail) {
     FirebaseFirestore.instance.collection("specialties").doc(lawyerEmail)
         .set({'specialties': specialtyList}).catchError((e) => print(e));
