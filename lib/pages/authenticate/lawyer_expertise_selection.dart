@@ -8,7 +8,6 @@ class Expertise extends StatelessWidget {
   DatabaseMethods dbMethods = new DatabaseMethods();
   AuthService auth = new AuthService();
 
-
   @override
   Widget build(BuildContext context) {
     var selectedCat = <String>[];
@@ -268,12 +267,9 @@ class Expertise extends StatelessWidget {
                   child: RaisedButton(
                     onPressed: () {
                       List<String> refinedCat = selectedCat.toSet().toList();
-                      print(refinedCat);
-                      dbMethods.uploadLawyerSpecialties(refinedCat, auth.getCurrEmail());
+                      dbMethods.uploadLawyerSpecialties(
+                          refinedCat, auth.getCurrEmail());
                       Navigator.pushNamed(context, 'page_wrapper');
-                      //Lawyer.categories = refinedCat;
-                      OurUser().categories = refinedCat;
-                      print(OurUser().categories);
                     },
                     child: Text(
                       'Done',

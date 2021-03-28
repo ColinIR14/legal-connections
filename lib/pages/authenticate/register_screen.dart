@@ -13,19 +13,8 @@ class InitScreen extends StatelessWidget {
           Expanded(
             flex: 9,
             child: Center(
-              child: RichText(
-                text: TextSpan(
-                  children: [
-                    //WidgetSpan(child: Icon(Icons.mail)),
-                    TextSpan(
-                      text: 'LawLink',
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 50.0,
-                      ),
-                    ),
-                  ],
-                ),
+              child: Container(
+                child: new Image.asset('assets/LawLink Logo.png'),
               ),
             ),
           ),
