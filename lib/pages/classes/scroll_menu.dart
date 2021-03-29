@@ -37,15 +37,16 @@ class CaseCard extends StatelessWidget {
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(14.0),
                   child: Container(
-                      width: 65.0,
-                      height: 65.0,
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                          image: NetworkImage(client.profile_pic),
-                          fit: BoxFit.fill,
-                        ),
+                    width: 65.0,
+                    height: 65.0,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: NetworkImage(client.profile_pic),
+                        fit: BoxFit.fill,
                       ),
-                      child: Image.network(client.profile_pic)),
+                    ),
+                    // child: Image.network(client.profile_pic)
+                  ),
                 ),
               ),
               Column(
@@ -70,7 +71,7 @@ class CaseCard extends StatelessWidget {
           Container(
               child: Text(
             //'${client.cases[0][0]}', //needs to be changed. may not be first case
-                category,
+            category,
             style: TextStyle(
               fontSize: 20.0,
             ),

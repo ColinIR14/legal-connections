@@ -7,7 +7,8 @@ class CaseProfile extends StatelessWidget {
   String text;
   List<String> photos;
 
-  CaseProfile(OurUser client, String category, String text, List<String> photos) {
+  CaseProfile(
+      OurUser client, String category, String text, List<String> photos) {
     this.client = client;
     this.category = category;
     this.text = text;
@@ -38,15 +39,16 @@ class CaseProfile extends StatelessWidget {
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(14.0),
                       child: Container(
-                          width: 100.0,
-                          height: 100.0,
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                              image: NetworkImage(client.profile_pic),
-                              fit: BoxFit.fill,
-                            ),
+                        width: 100.0,
+                        height: 100.0,
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            image: NetworkImage(client.profile_pic),
+                            fit: BoxFit.fill,
                           ),
-                          child: Image.network(client.profile_pic)),
+                        ),
+                        // child: Image.network(client.profile_pic)
+                      ),
                     ),
                   ),
                   Column(
@@ -153,15 +155,16 @@ class Gallery extends StatelessWidget {
         child: ClipRRect(
           borderRadius: BorderRadius.circular(14.0),
           child: Container(
-              width: 315.0,
-              height: 150.0,
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: NetworkImage(pic),
-                  fit: BoxFit.fill,
-                ),
+            width: 315.0,
+            height: 150.0,
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: NetworkImage(pic),
+                fit: BoxFit.fill,
               ),
-              child: Image.network(pic)),
+            ),
+            // child: Image.network(pic)
+          ),
         ),
       ),
     );
