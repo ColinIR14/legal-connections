@@ -1,19 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:legal_app/pages/authenticate/legal_selection.dart';
 import 'package:legal_app/services/auth.dart';
 import 'package:legal_app/services/constants.dart';
 import 'package:legal_app/services/database.dart';
-import '../home/cases_menu.dart';
-import '../classes/scroll_menu.dart';
 import 'searching_for_legal_aid.dart';
-import 'legal_selection.dart';
 import 'lawyer_expertise_selection.dart';
-// CaseCard whatever = CaseCard(
-//     'Name',
-//     'Location',
-//     'Service',
-//     'https://media.sproutsocial.com/uploads/2017/02/10x-featured-social-media-image-size.png',
-//     'sfsfdkhjsfjhssfdjhgfjkhdkfdgggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggdddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddgggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggjghsdjgdfhkhjgkjhgfkjhsfdjhkdgfjhkgfjkhgfjh');
 
 class SignupForm extends StatefulWidget {
   @override

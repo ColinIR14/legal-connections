@@ -1,10 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:legal_app/pages/classes/users.dart';
-import 'package:legal_app/pages/home/chat_screen.dart';
 import 'package:legal_app/services/auth.dart';
 import 'package:legal_app/services/database.dart';
-import '../wrapper.dart';
 import 'package:legal_app/pages/classes/appbars.dart';
 
 
@@ -27,8 +25,6 @@ class _ChatScreenState extends State<ChatScreen> {
     return StreamBuilder(
       stream: chats,
       builder: (context, snapshot) {
-        print("Has data?");
-        print(snapshot.hasData);
         return snapshot.hasData ? ListView.builder(
             itemCount: snapshot.data.docs.length,
             itemBuilder: (context, index) {
@@ -62,11 +58,8 @@ class _ChatScreenState extends State<ChatScreen> {
 
   @override
   void initState() {
-    print("Widget ID: ");
-    print(widget.chatID);
     DatabaseMethods().getChats(widget.chatID).then((val) {
       setState(() {
-        print("initialized snapshot");
         chats = val;
       });
     });
@@ -75,9 +68,6 @@ class _ChatScreenState extends State<ChatScreen> {
 
   @override
   Widget build(BuildContext context) {
-    print('made it to build');
-    print("Widget ID: ");
-    print(widget.chatID);
     return Scaffold(
       appBar: DefaultAppbar('My Links'),
       body: Container(
@@ -177,7 +167,7 @@ class MessageTile extends StatelessWidget {
       padding: EdgeInsets.only(
           top: 8,
           bottom: 8,
-          left: sentByMe ? 0 : 24,
+          left: sentByMe ? 0 : 24, //put on left side if other person's message, right side if my message
           right: sentByMe ? 24 : 0),
       alignment: sentByMe ? Alignment.centerRight : Alignment.centerLeft,
       child: Container(
@@ -198,7 +188,7 @@ class MessageTile extends StatelessWidget {
                 bottomRight: Radius.circular(23)),
             gradient: LinearGradient(
               colors: sentByMe ? [
-                const Color(0xff007EF4),
+                const Color(0xff007EF4), //change colour depending on who sent message
                 const Color(0xff2A75BC)
               ]
                   : [

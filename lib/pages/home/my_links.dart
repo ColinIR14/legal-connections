@@ -117,7 +117,7 @@ class MessageCard extends StatelessWidget {
 
   getChatRoomId(OurUser user1, OurUser user2) {
     if (user1.type == "Lawyer") {
-      return "${user1.email}\_${user2.email}";
+      return "${user1.email}\_${user2.email}"; //want pattern of name to be lawyer_client
     } else {
       return "${user2.email}\_${user1.email}";
     }
@@ -125,7 +125,7 @@ class MessageCard extends StatelessWidget {
 
   getChatNames(OurUser user1, OurUser user2) {
     if (user1.type == "Lawyer") {
-      return "${user1.name}\_${user2.name}";
+      return "${user1.name}\_${user2.name}"; //again want pattern to be lawyer_client
     } else {
       return "${user2.name}\_${user1.name}";
     }

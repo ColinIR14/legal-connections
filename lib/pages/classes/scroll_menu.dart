@@ -70,7 +70,6 @@ class CaseCard extends StatelessWidget {
           ),
           Container(
               child: Text(
-            //'${client.cases[0][0]}', //needs to be changed. may not be first case
             category,
             style: TextStyle(
               fontSize: 20.0,
@@ -79,7 +78,6 @@ class CaseCard extends StatelessWidget {
           Container(
               margin: EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 0.0),
               child: Text(
-                //'${client.cases[0][1]}', //also needs to be changed. same reason
                 text,
                 textAlign: TextAlign.left,
                 overflow: TextOverflow.fade,

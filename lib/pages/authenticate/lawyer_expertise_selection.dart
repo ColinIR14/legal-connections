@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:legal_app/pages/classes/users.dart';
 import 'package:legal_app/services/auth.dart';
-import 'package:legal_app/services/constants.dart';
 import 'package:legal_app/services/database.dart';
 
 class Expertise extends StatelessWidget {

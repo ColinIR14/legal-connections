@@ -124,6 +124,7 @@ class _ProfileState extends State<Profile> {
                       "profile_pic": 'https://media.sproutsocial.com/uploads/2017/02/10x-featured-social-media-image-size.png',
                       "location": 'Canada',
                       "bio": text,
+                      //merge
                     };
                   }
                 },
