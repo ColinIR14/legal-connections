@@ -128,30 +128,6 @@ class _ChatScreenState extends State<ChatScreen> {
       ),
     );
   }
-  /*
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        elevation: 0,
-        backgroundColor: Colors.white10,
-        leading: BackButton(
-          color: Colors.grey,
-        ),
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: <Widget>[
-            chatMessages()
-
-            //buildInput(),
-          ]
-        )
-      ),
-    );
-  }
-
-   */
 }
 
 class MessageTile extends StatelessWidget {

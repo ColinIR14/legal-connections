@@ -123,11 +123,10 @@ class _ProfileState extends State<Profile> {
                       "type": user.type,
                       "profile_pic": 'https://media.sproutsocial.com/uploads/2017/02/10x-featured-social-media-image-size.png',
                       "location": 'Canada',
-                      "bio": text,
-                      //merge
-                    };
+                      "bio": text};
+                      dbMethods.uploadUserInfo(userInfoMap);
                   }
-                },
+                  },
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
                   child: Text(
